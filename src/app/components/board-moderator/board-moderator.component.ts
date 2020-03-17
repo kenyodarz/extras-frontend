@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from 'src/app/services/user.service';
+import { UserService } from "src/app/services/user.service";
 
 @Component({
   selector: "app-board-moderator",
@@ -12,12 +12,12 @@ export class BoardModeratorComponent implements OnInit {
   constructor(private userService: UserService) {}
 
   ngOnInit() {
-    this.userService.getAdminBoard().subscribe(
+    this.userService.getModeratorBoard().subscribe(
       data => {
         this.content = data;
       },
-      err => {
-        this.content = JSON.parse(err.error).message;
+      error => {
+        this.content = JSON.parse(error.error).message;
       }
     );
   }

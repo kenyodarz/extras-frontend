@@ -1,86 +1,142 @@
-<div class="col-md-12">
-  <div class="card card-container">
-    <img
-      id="profile-img"
-      src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
-      class="profile-img-card"
-    />
-    <form
-      *ngIf="!isSuccessful"
-      name="form"
-      (ngSubmit)="f.form.valid && onSubmit()"
-      #f="ngForm"
-      novalidate
+<p-toast [style]="{ marginTop: '80px' }"></p-toast>
+
+<form
+  [formGroup]="userform"
+  #f="ngForm"
+  (ngSubmit)="f.form.valid && onSubmit()"
+>
+  <p-panel>
+    <p-header>
+      <img id="profile-img" src="./assets/user.png" class="profile-img-card" />
+      <h2>REGISTRO</h2>
+    </p-header>
+    <div
+      class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid"
+      style="margin: 10px 0px"
     >
-      <div class="form-group">
-        <label for="username">Username</label>
-        <input
-          type="text"
-          class="form-control"
-          name="username"
-          [(ngModel)]="form.username"
-          required
-          minlength="3"
-          maxlength="20"
-          #username="ngModel"
-        />
-        <div class="alert-danger" *ngIf="f.submitted && username.invalid">
-          <div *ngIf="username.errors.required">Username is required</div>
-          <div *ngIf="username.errors.minlength">
-            Username must be at least 3 characters
-          </div>
-          <div *ngIf="username.errors.maxlength">
-            Username must be at most 20 characters
-          </div>
+      <div class="ui-grid-row">
+        <div class="ui-grid-col-2">
+          Usuario *:
+        </div>
+        <div class="ui-grid-col-6">
+          <input
+            pInputText
+            type="text"
+            formControlName="username"
+            placeholder="Requerido"
+            required
+            minlength="3"
+            maxlength="20"
+          />
+        </div>
+        <div class="ui-grid-col-4">
+          <p-message
+            severity="error"
+            text="Nombre de Usuario Requerido"
+            *ngIf="
+              !userform.controls['username'].valid &&
+              userform.controls['username'].dirty
+            "
+          ></p-message>
+          <p-message
+            severity="error"
+            text="Usuario debe tener minimo 3 caracteres"
+            *ngIf="
+              !userform.controls['username'].valid &&
+              userform.controls['username'].errors.minlength
+            "
+          ></p-message>
+          <p-message
+            severity="error"
+            text="Usuario debe tener maximo 20 caracteres"
+            *ngIf="
+              !userform.controls['username'].valid &&
+              userform.controls['username'].errors.maxlength
+            "
+          ></p-message>
         </div>
       </div>
-      <div class="form-group">
-        <label for="email">Email</label>
-        <input
-          type="email"
-          class="form-control"
-          name="email"
-          [(ngModel)]="form.email"
-          required
-          email
-          #email="ngModel"
-        />
-        <div class="alert-danger" *ngIf="f.submitted && email.invalid">
-          <div *ngIf="email.errors.required">Email is required</div>
-          <div *ngIf="email.errors.email">
-            Email must be a valid email address
-          </div>
+      <div class="ui-grid-row">
+        <div class="ui-grid-col-2">
+          Email *:
+        </div>
+        <div class="ui-grid-col-6">
+          <input
+            pInputText
+            type="text"
+            formControlName="email"
+            placeholder="Requerido"
+            required
+            email
+          />
+        </div>
+        <div class="ui-grid-col-4">
+          <p-message
+            severity="error"
+            text="Correo es Requerido"
+            *ngIf="
+              !userform.controls['email'].valid &&
+              userform.controls['email'].dirty
+            "
+          ></p-message>
+          <p-message
+            severity="error"
+            text="Digite un correo electronico valido"
+            *ngIf="
+              !userform.controls['email'].valid &&
+              userform.controls['email'].errors.email
+            "
+          ></p-message>
         </div>
       </div>
-      <div class="form-group">
-        <label for="password">Password</label>
-        <input
-          type="password"
-          class="form-control"
-          name="password"
-          [(ngModel)]="form.password"
-          required
-          minlength="6"
-          #password="ngModel"
-        />
-        <div class="alert-danger" *ngIf="f.submitted && password.invalid">
-          <div *ngIf="password.errors.required">Password is required</div>
-          <div *ngIf="password.errors.minlength">
-            Password must be at least 6 characters
-          </div>
+      <div class="ui-grid-row">
+        <div class="ui-grid-col-2">
+          Contraseña *:
+        </div>
+        <div class="ui-grid-col-6">
+          <input
+            pInputText
+            type="password"
+            formControlName="password"
+            placeholder="Required - Min(6)"
+            minlength="6"
+            required
+          />
+        </div>
+        <div class="ui-grid-col-4">
+          <p-message
+            severity="error"
+            [text]="
+              userform.controls['password'].errors['required']
+                ? 'Contraseña Obligatoria'
+                : userform.controls['password'].errors['minlength']
+                ? ''
+                : ''
+            "
+            *ngIf="
+              !userform.controls['password'].valid &&
+              userform.controls['password'].dirty
+            "
+          ></p-message>
         </div>
       </div>
-      <div class="form-group">
-        <button class="btn btn-primary btn-block">Sign Up</button>
+      <div class="ui-grid-row">
+        <div class="ui-grid-col-2"></div>
+        <div class="ui-grid-col-6">
+          <button
+            pButton
+            type="submit"
+            label="Submit"
+            [disabled]="!userform.valid"
+          ></button>
+        </div>
+        <div class="ui-grid-col-4"></div>
       </div>
-
-      <div class="alert alert-warning" *ngIf="f.submitted && isSignUpFailed">
-        Signup failed!<br />{{ errorMessage }}
+      <div style="text-align:center;margin-top:20px" *ngIf="submitted">
+        Form Submitted
+        <br />
+        {{ diagnostic }}
       </div>
-    </form>
-
-    <div class="alert alert-success" *ngIf="isSuccessful">
-      Your registration is successful!
     </div>
-  </div>
-</div>
+  </p-panel>
+</form>

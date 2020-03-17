@@ -1,38 +1,34 @@
 import { Component, OnInit } from "@angular/core";
-// tslint:disable-next-line: no-submodule-imports
-import { MenuItem } from "primeng/api";
+import { TokenStorageService } from "src/app/services/token-storage.service"
 
 @Component({
   selector: "app-toolbar",
   templateUrl: "./toolbar.component.html",
-  styleUrls: ["./toolbar.component.scss"],
-  styles: [
-    `
-      :host ::ng-deep button {
-        margin-right: 0.25em;
-      }
-      :host ::ng-deep .ui-splitbutton {
-        margin-left: 0.25em;
-      }
-      :host ::ng-deep .ui-splitbutton button {
-        margin-right: 0;
-      }
-    `
-  ]
+  styleUrls: ["./toolbar.component.scss"]
 })
 export class ToolbarComponent implements OnInit {
-  items: MenuItem[];
+  appName = "CDM";
+  private roles: string[];
+  isLoggedIn = false;
+  showAdminBoard = false;
+  showModeratoBoard = false;
+  username: string;
+  showModeratorBoard: boolean;
 
-  constructor() {}
+  constructor(private tokenStorageService: TokenStorageService) {}
 
-  ngOnInit(): void {
-    this.items = [
-      {
-        label: "Angular.io",
-        icon: "pi pi-external-link",
-        url: "http://angular.io"
-      },
-      { label: "Theming", icon: "pi pi-palette", routerLink: ["/theming"] }
-    ];
+  ngOnInit() {
+    this.isLoggedIn = !!this.tokenStorageService.getToken();
+    if (this.isLoggedIn) {
+      const user = this.tokenStorageService.getUser();
+      this.roles = user.roles;
+      this.showAdminBoard = this.roles.includes("ROLE_ADMIN");
+      this.showModeratorBoard = this.roles.includes("ROLE_MODERATOR");
+      this.username = user.username;
+    }
+  }
+  logout() {
+    this.tokenStorageService.singOut();
+    window.location.reload();
   }
 }

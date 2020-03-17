@@ -26,6 +26,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 
+
 const myModule = [
   MatCardModule,
   MatButtonModule,
@@ -66,4 +67,4 @@ const myModule = [
   exports: [myModule],
   providers: [MatDatepickerModule]
 })
-export class MaterialModule {}
+export class MaterialModule { }

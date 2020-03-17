@@ -1,0 +1,10 @@
+:host {
+  position: center;
+  display: grid;
+  justify-content: center;
+  margin: 100px 0;
+}
+.card{
+  border: transparent;
+  background-color: transparentize($color: #000000, $amount: 1);
+}
