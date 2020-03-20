@@ -9,6 +9,7 @@ import {
 import { SelectItem } from "primeng/api";
 import { MessageService } from "primeng/api";
 
+
 @Component({
   selector: "app-register",
   templateUrl: "./register.component.html",

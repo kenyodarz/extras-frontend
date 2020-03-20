@@ -21,6 +21,20 @@
   >
     <button mat-button>Moderator</button>
   </a>
+  <a
+    [routerLink]="['/supervisor']"
+    routerLinkActive="router-link-active"
+    *ngIf="showSupervisorBoard"
+  >
+    <button mat-button>Supervisor</button>
+  </a>
+  <a
+    [routerLink]="['/personas']"
+    routerLinkActive="router-link-active"
+    *ngIf="showPersonasBoard"
+  >
+    <button mat-button>Persona</button>
+  </a>
 
   <a
     [routerLink]="['/user']"

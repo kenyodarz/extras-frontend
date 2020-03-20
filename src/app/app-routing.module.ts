@@ -1,3 +1,4 @@
+import { PersonasComponent } from './components/personas/personas.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
@@ -19,6 +20,7 @@ const routes: Routes = [
   { path: "mod", component: BoardModeratorComponent },
   { path: "admin", component: BoardAdminComponent },
   { path: "about", component: AboutComponent },
+  { path: "personas", component: PersonasComponent },
   { path: "", redirectTo: "home", pathMatch: "full" }
 ];
 

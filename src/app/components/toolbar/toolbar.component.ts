@@ -11,9 +11,10 @@ export class ToolbarComponent implements OnInit {
   private roles: string[];
   isLoggedIn = false;
   showAdminBoard = false;
-  showModeratoBoard = false;
+  showModeratorBoard = false;
+  showPersonasBoard = false;
   username: string;
-  showModeratorBoard: boolean;
+  showSupervisorBoard = false;
 
   constructor(private tokenStorageService: TokenStorageService) {}
 
@@ -24,6 +25,9 @@ export class ToolbarComponent implements OnInit {
       this.roles = user.roles;
       this.showAdminBoard = this.roles.includes("ROLE_ADMIN");
       this.showModeratorBoard = this.roles.includes("ROLE_MODERATOR");
+      this.showSupervisorBoard = this.roles.includes("ROLE_SUPERVISOR");
+      this.showPersonasBoard = this.roles.includes("ROLE_ADMIN");
+
       this.username = user.username;
     }
   }

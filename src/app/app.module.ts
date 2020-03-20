@@ -1,13 +1,13 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
 
 /* Modulos */
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule } from "@angular/forms";
 import { HttpClientModule } from "@angular/common/http";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { MaterialModule } from "./material.module";
-import { PrimengModule } from "./primeng.module";
+import { MaterialModule } from "src/app/material.module";
+import { PrimengModule } from "src/app/primeng.module";
 import { ReactiveFormsModule } from "@angular/forms";
 
 /* Componentes */
@@ -25,6 +25,8 @@ import { authInterceptorProviders } from "src/app/helpers/auth.interceptor";
 import { ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@angular/material/core';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { AboutComponent } from './components/about/about.component';
+import { MessageService, ConfirmationService } from 'primeng/api';
+import { PersonasComponent } from './components/personas/personas.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +39,8 @@ import { AboutComponent } from './components/about/about.component';
     BoardModeratorComponent,
     BoardUserComponent,
     ToolbarComponent,
-    AboutComponent
+    AboutComponent,
+    PersonasComponent
   ],
   imports: [
     BrowserModule,
@@ -50,9 +53,12 @@ import { AboutComponent } from './components/about/about.component';
     ReactiveFormsModule
   ],
   providers: [
+    MessageService, 
+    ConfirmationService,
     authInterceptorProviders,
-    { provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher }
+    { provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher },
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
