@@ -26,11 +26,11 @@ export class ProyectosComponent implements OnInit {
   errorMessage: string = "";
   proyecto: Proyecto = {
     idProyecto: null,
-    nombreProyecto: null
+    nombre: null
   };
   selectedProyecto: Proyecto = {
     idProyecto: null,
-    nombreProyecto: null
+    nombre: null
   };
 
   constructor(
@@ -151,10 +151,38 @@ export class ProyectosComponent implements OnInit {
       error => {
         this.errorMessage = error.error.message;
         this.isSignUpFailed = true;
-        
       }
     );
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.getAll();
+
+    this.cols = [
+      { field: "idProyecto", header: "Id" },
+      { field: "nombre", header: "Nombre" }
+    ];
+    this.items = [
+      {
+        label: "Nuevo",
+        icon: "pi pi-fw pi-plus",
+        command: () => this.showSaveDialog(false)
+      },
+      {
+        label: "Editar",
+        icon: "pi pi-fw pi-pencil",
+        command: () => this.showSaveDialog(true)
+      },
+      {
+        label: "Eliminar",
+        icon: "pi pi-fw pi-trash",
+        command: () => this.delete()
+      },
+      {
+        label: "Actualizar",
+        icon: "pi pi-fw pi-refresh",
+        command: () => this.getAll()
+      }
+    ];
+  }
 }

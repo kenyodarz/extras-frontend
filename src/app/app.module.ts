@@ -28,6 +28,7 @@ import { AboutComponent } from './components/about/about.component';
 import { MessageService, ConfirmationService } from 'primeng/api';
 import { PersonasComponent } from './components/personas/personas.component';
 import { ProyectosComponent } from './components/proyectos/proyectos.component';
+import { RegistrosComponent } from './components/registros/registros.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { ProyectosComponent } from './components/proyectos/proyectos.component';
     ToolbarComponent,
     AboutComponent,
     PersonasComponent,
-    ProyectosComponent
+    ProyectosComponent,
+    RegistrosComponent
   ],
   imports: [
     BrowserModule,
