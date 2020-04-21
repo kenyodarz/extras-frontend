@@ -1,3 +1,4 @@
+import { RegistrosComponent } from './components/registros/registros.component';
 import { ProyectosComponent } from './components/proyectos/proyectos.component';
 import { PersonasComponent } from './components/personas/personas.component';
 import { NgModule } from '@angular/core';
@@ -23,6 +24,7 @@ const routes: Routes = [
   { path: "about", component: AboutComponent },
   { path: "personas", component: PersonasComponent },
   { path: "proyectos", component: ProyectosComponent },
+  { path: "registros", component: RegistrosComponent },
   { path: "", redirectTo: "home", pathMatch: "full" }
 ];
 

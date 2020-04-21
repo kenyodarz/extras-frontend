@@ -19,6 +19,7 @@
       [paginator]="true"
       selectionMode="single"
       [(selection)]="selectedProyecto"
+      dataKey="idProyecto"
       [rows]="10"
       [responsive]="true"
     >
@@ -45,7 +46,7 @@
         <div style="text-align: left">
           Registro Seleccionado:
           {{
-            !selectedProyecto
+            selectedProyecto
               ? selectedProyecto.idProyecto +
                 " - " +
                 selectedProyecto.nombre
