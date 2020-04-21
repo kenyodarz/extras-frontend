@@ -27,6 +27,7 @@ import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { AboutComponent } from './components/about/about.component';
 import { MessageService, ConfirmationService } from 'primeng/api';
 import { PersonasComponent } from './components/personas/personas.component';
+import { ProyectosComponent } from './components/proyectos/proyectos.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { PersonasComponent } from './components/personas/personas.component';
     BoardUserComponent,
     ToolbarComponent,
     AboutComponent,
-    PersonasComponent
+    PersonasComponent,
+    ProyectosComponent
   ],
   imports: [
     BrowserModule,

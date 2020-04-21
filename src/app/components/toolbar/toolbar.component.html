@@ -35,6 +35,13 @@
   >
     <button mat-button>Persona</button>
   </a>
+  <a
+    [routerLink]="['/proyectos']"
+    routerLinkActive="router-link-active"
+    *ngIf="showProyectosBoard"
+  >
+    <button mat-button>Proyecto</button>
+  </a>
 
   <a
     [routerLink]="['/user']"

@@ -13,6 +13,7 @@ export class ToolbarComponent implements OnInit {
   showAdminBoard = false;
   showModeratorBoard = false;
   showPersonasBoard = false;
+  showProyectosBoard = false;
   username: string;
   showSupervisorBoard = false;
 
@@ -27,6 +28,7 @@ export class ToolbarComponent implements OnInit {
       this.showModeratorBoard = this.roles.includes("ROLE_MODERATOR");
       this.showSupervisorBoard = this.roles.includes("ROLE_SUPERVISOR");
       this.showPersonasBoard = this.roles.includes("ROLE_ADMIN");
+      this.showProyectosBoard = this.roles.includes("ROLE_ADMIN");
 
       this.username = user.username;
     }
