@@ -3,7 +3,7 @@ import { Observable } from "rxjs";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 
-const API_URL: String = "http://localhost:8080/api/proyecto/";
+const API_URL: String = "http://localhost:8080/extras-backend/api/proyecto/";
 @Injectable({
   providedIn: "root"
 })

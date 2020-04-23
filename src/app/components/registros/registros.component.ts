@@ -172,8 +172,8 @@ export class RegistrosComponent implements OnInit {
       { field: "hora_extra_nocturna", header: "HEN" },
       { field: "hora_extra_festiva", header: "HEF" },
       { field: "hora_extra_festiva_nocturna", header: "HEFN" },
-      { field: "persona", header: "Persona" },
-      { field: "proyecto", header: "Proyecto" }
+      { field: "persona", subfield: "nombre", header: "Persona" },
+      { field: "proyecto", subfield: "nombre", header: "Proyecto" }
     ];
   }
 }

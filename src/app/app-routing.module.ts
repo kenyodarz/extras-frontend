@@ -1,8 +1,7 @@
-import { RegistrosComponent } from './components/registros/registros.component';
-import { ProyectosComponent } from './components/proyectos/proyectos.component';
-import { PersonasComponent } from './components/personas/personas.component';
+// Angular
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+// Entradas
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
@@ -11,6 +10,10 @@ import { BoardUserComponent } from './components/board-user/board-user.component
 import { BoardModeratorComponent } from './components/board-moderator/board-moderator.component';
 import { BoardAdminComponent } from './components/board-admin/board-admin.component';
 import { AboutComponent } from './components/about/about.component';
+import { EntradasComponent } from './components/entradas/entradas.component';
+import { RegistrosComponent } from './components/registros/registros.component';
+import { ProyectosComponent } from './components/proyectos/proyectos.component';
+import { PersonasComponent } from './components/personas/personas.component';
 
 
 const routes: Routes = [
@@ -25,6 +28,7 @@ const routes: Routes = [
   { path: "personas", component: PersonasComponent },
   { path: "proyectos", component: ProyectosComponent },
   { path: "registros", component: RegistrosComponent },
+  { path: "entradas", component: EntradasComponent },
   { path: "", redirectTo: "home", pathMatch: "full" }
 ];
 

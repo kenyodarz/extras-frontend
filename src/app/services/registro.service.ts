@@ -9,7 +9,7 @@ import { Registro } from "../models/Registro";
   providedIn: "root"
 })
 export class RegistroService {
-  baseURL: string = "http://localhost:8080/api/registro";
+  baseURL: string = "http://localhost:8080/extras-backend/api/registro";
   constructor(private http: HttpClient) {}
 
   getAll(): Observable<any> {
@@ -24,8 +24,7 @@ export class RegistroService {
     });
   }
 
-  delete (id: number): Observable <any> {
+  delete(id: number): Observable<any> {
     return this.http.get(this.baseURL + "/delete/" + id);
   }
-
 }

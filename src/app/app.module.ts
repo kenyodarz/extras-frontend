@@ -29,6 +29,7 @@ import { MessageService, ConfirmationService } from 'primeng/api';
 import { PersonasComponent } from './components/personas/personas.component';
 import { ProyectosComponent } from './components/proyectos/proyectos.component';
 import { RegistrosComponent } from './components/registros/registros.component';
+import { EntradasComponent } from './components/entradas/entradas.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { RegistrosComponent } from './components/registros/registros.component';
     AboutComponent,
     PersonasComponent,
     ProyectosComponent,
-    RegistrosComponent
+    RegistrosComponent,
+    EntradasComponent
   ],
   imports: [
     BrowserModule,
