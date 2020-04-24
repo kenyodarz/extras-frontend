@@ -24,6 +24,8 @@ import { ToolbarModule } from "primeng/toolbar";
 import { SplitButtonModule } from "primeng/splitbutton";
 import { TabViewModule } from "primeng/tabview";
 import { CodeHighlighterModule } from "primeng/codehighlighter";
+import { CheckboxModule } from "primeng/checkbox";
+import { MultiSelectModule } from "primeng/multiselect";
 
 const myModule = [
   MessagesModule,
@@ -47,7 +49,9 @@ const myModule = [
   ConfirmDialogModule,
   PaginatorModule,
   ChartModule,
-  CardModule
+  CardModule,
+  CheckboxModule,
+  MultiSelectModule
 ];
 
 @NgModule({

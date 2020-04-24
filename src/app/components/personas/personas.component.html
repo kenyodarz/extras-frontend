@@ -5,8 +5,7 @@
     acceptLabel="Si"
     rejectLabel="No"
     icon="pi pi-exclamation-triangle"
-  >
-  </p-confirmDialog>
+  ></p-confirmDialog>
   <p-panel
     header="Administracion de Personas"
     [style]="{ width: '100%', margin: '0 auto' }"
@@ -22,6 +21,7 @@
       [(selection)]="selectedPersona"
       dataKey="cedula"
       [rows]="10"
+      [rowsPerPageOptions]="[10, 20, 30]"
       [responsive]="true"
     >
       <ng-template pTemplate="header" let-columns>

@@ -1,1 +1,97 @@
-<p>entradas works!</p>
+<div class="ui-g">
+  <p-toast></p-toast>
+  <p-confirmDialog
+    header="Confirmación"
+    acceptLabel="Si"
+    rejectLabel="No"
+    icon="pi pi-exclamation-triangle"
+  ></p-confirmDialog>
+  <div class="ui-g-12">
+    <p-panel [style]="{ width: '100%', margin: '0 auto' }">
+      <p-header>
+        <div class="ui-helper-clearfix">
+          <span
+            class="ui-panel-title"
+            style="font-size:16px;display:inline-block;margin-top:2px"
+            >Filtros</span
+          >
+        </div>
+      </p-header>
+      <div class="ui-g-6">
+        <h3 class="first">Trabajador</h3>
+        <p-multiSelect
+          [options]="personas"
+          [selectionLimit]="1"
+          [(ngModel)]="selectedPersona"
+        ></p-multiSelect>
+        <p>Trabajador Seleccionado: {{ selectedPersona }}</p>
+      </div>
+      <div class="ui-g-6">
+        <h3 class="first">Proyecto</h3>
+      </div>
+      <p-footer></p-footer>
+    </p-panel>
+  </div>
+  <div class="ui-g-12">
+    <p-panel>
+      <p-table></p-table>
+    </p-panel>
+  </div>
+</div>
+
+<p-dialog
+  [(visible)]="display"
+  [focusOnShow]="false"
+  [responsive]="true"
+  showEffect="fade"
+  [modal]="true"
+  [resizable]="true"
+  [maximizable]="true"
+  [style]="{ width: '80%' }"
+  [contentStyle]="{ overflow: 'visible' }"
+>
+  <p-header>
+    Seleccione Una Fecha y Proyecto
+  </p-header>
+  <div class="ui-g ui-fluid">
+    <div class="ui-g-12">
+      <div class="ui-g-3">
+        <label for="fecha">Fecha</label>
+      </div>
+      <div class="ui-g-9">
+        <p-calendar
+          [(ngModel)]="date"
+          [locale]="es"
+          dateFormat="yy-mm-dd"
+        ></p-calendar>
+      </div>
+    </div>
+    <div class="ui-g-12">
+      <div class="ui-g-3">
+        <label for="festivo">¿Festivo?</label>
+      </div>
+      <div class="ui-g-4">
+        <p-checkbox [(ngModel)]="festivo" binary="true"></p-checkbox>
+      </div>
+      <div class="ui-g-5">
+        <h3>{{ festivo ? "Si" : "No" }}</h3>
+      </div>
+    </div>
+  </div>
+  <p-footer>
+    <div class="ui-g-12">
+      <button
+        pButton
+        type="button"
+        label="Aceptar"
+        class="ui-button-raised"
+      ></button>
+      <button
+        pButton
+        type="button"
+        label="Cancelar"
+        class="ui-button-raised ui-button-danger"
+      ></button>
+    </div>
+  </p-footer>
+</p-dialog>

@@ -51,6 +51,14 @@
   >
     <button mat-button>Registro</button>
   </a>
+  
+  <a
+    [routerLink]="['/entradas']"
+    routerLinkActive="router-link-active"
+    *ngIf="showProyectosBoard"
+  >
+    <button mat-button>Entrada</button>
+  </a>
 
   <a
     [routerLink]="['/user']"
