@@ -1,3 +1,13 @@
+#agregarEntrada{
+  padding: 10px;
+}
+
+#agregarEntrada p-calendar .form-control:disabled,
+#agregarEntrada p-calendar .form-control[readonly]{
+    background: #fff;
+    text-align: center;
+}
+
 .ui-dialog-content.ui-widget-content.ng-tns-c65-0 {
   overflow: visible;
 }

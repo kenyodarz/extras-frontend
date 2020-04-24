@@ -63,8 +63,8 @@ export class EntradasComponent implements OnInit {
   display: boolean;
   es: any;
   date: Date;
-  time: Date;
-  time2: Date;
+  entradaHora: Date;
+  salidaHora: Date;
   festivo: boolean;
   isSuccessful = false;
   isSignUpFailed = false;
@@ -88,8 +88,8 @@ export class EntradasComponent implements OnInit {
     this.formEntrada = this.formBuilder.group({
       persona: new FormControl(null, Validators.required),
       proyecto: new FormControl(null, Validators.required),
-      entrada: new FormControl("", Validators.required),
-      salida: new FormControl("", Validators.required)
+      entrada: new FormControl(null, Validators.required),
+      salida: new FormControl(null, Validators.required)
     });
   }
 
@@ -149,6 +149,14 @@ export class EntradasComponent implements OnInit {
 
   get proyecto(){
     return this.formEntrada.get("proyecto")
+  }
+
+  get entrada(){
+    return this.formEntrada.get("entrada")
+  }
+
+  get salida(){
+    return this.formEntrada.get("salida")
   }
 
   onPersonaChange(){

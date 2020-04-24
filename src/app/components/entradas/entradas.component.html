@@ -5,10 +5,12 @@
         <div class="col-12 mt-2">
           <div class="p-grid">
             <div class="p-col-6">
-              <div class="box">{{date | date: 'yyyy-MM-dd'}}</div>
+              <div class="box">{{ date | date: "yyyy-MM-dd" }}</div>
             </div>
             <div class="p-col-6">
-              <div class="box">{{festivo ? "Es dia festivo":"No es Dia Festivo"}}</div>
+              <div class="box">
+                {{ festivo ? "Es dia festivo" : "No es Dia Festivo" }}
+              </div>
             </div>
             <div class="p-col-6">
               <div class="box">
@@ -71,17 +73,63 @@
                       *ngIf="proyecto.invalid && formEntrada.dirty"
                       class="error"
                     >
-                      Proyecto Requerido Requerido
+                      Seleccione un Proyecto
                     </div>
                   </div>
                 </div>
               </div>
             </div>
             <div class="p-col-6">
-              <div class="box">1</div>
+              <div class="box">
+                <div class="row">
+                  <div class="col-12 mt-2 mb-2">
+                    <label for="horaEntrada">Hora de Entrada</label>
+                    <p-calendar
+                      [(ngModel)]="entradaHora"
+                      [timeOnly]="true"
+                      formControlName="entrada"
+                      [readonlyInput]="true"
+                      inputStyleClass="form-control"
+                      [ngClass]="{
+                        'is-valid': entrada.dirty && !entrada.invalid,
+                        'is-invalid': entrada.dirty && entrada.invalid
+                      }"
+                    ></p-calendar>
+                    <div
+                      *ngIf="entrada.invalid && formEntrada.dirty"
+                      class="error"
+                    >
+                      Seleccione la hora ingreso
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
             <div class="p-col-6">
-              <div class="box">2</div>
+              <div class="box">
+                <div class="row">
+                  <div class="col-12 mt-2 mb-2">
+                    <label for="horaSalida">Hora de Salida</label>
+                    <p-calendar
+                      [(ngModel)]="salidaHora"
+                      [timeOnly]="true"
+                      formControlName="salida"
+                      [readonlyInput]="true"
+                      inputStyleClass="form-control"
+                      [ngClass]="{
+                        'is-valid': salida.dirty && !salida.invalid,
+                        'is-invalid': salida.dirty && salida.invalid
+                      }"
+                    ></p-calendar>
+                    <div
+                      *ngIf="salida.invalid && formEntrada.dirty"
+                      class="error"
+                    >
+                      Seleccione la hora de salida
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
