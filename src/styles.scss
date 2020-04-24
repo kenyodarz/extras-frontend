@@ -14,41 +14,5 @@ body {
   background-size: cover;
 }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
-.fill-remaining-space {
-  flex: 1 1 auto;
-}
 
-.router-link-active {
-  border: 1px solid ghostwhite;
-}
-
-.container-spinnner {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-}
-
-.oceano {
-  background: blue !important;
-}
-
-.computer {
-  background: gray !important;
-}
-
-.bosque {
-  background: green !important;
-}
-
-.relax {
-  background: rebeccapurple !important;
-}
-
-mat-chip.mat-primary.mat-standard-chip.mat-chip-selected {
-  min-height: 1rem;
-  padding: 9px;
-}
-
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html body .ui-calendar { display: block; }

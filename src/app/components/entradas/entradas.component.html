@@ -1,78 +1,99 @@
-<div class="ui-g">
-  <p-toast></p-toast>
-  <p-confirmDialog
-    header="Confirmación"
-    acceptLabel="Si"
-    rejectLabel="No"
-    icon="pi pi-exclamation-triangle"
-  ></p-confirmDialog>
-  <div class="ui-g-12">
-    <div class="p-grid">
-      <div class="p-col">
-        <div class="ui-g-12">
-          <h3 class="first">Trabajador</h3>
-          <p-multiSelect
-            [options]="personas"
-            defaultLabel="Seleccione"
-            [selectionLimit]="1"
-            [(ngModel)]="selectedPersona"
-          ></p-multiSelect>
-          <p>
-            Trabajador Seleccionado:
-            {{ selectedPersona ? selectedPersona : "Ninguno" }}
-          </p>
+<div class="row" id="agregarEntrada">
+  <div class="col-12">
+    <form [formGroup]="formEntrada" (ngSubmit)="agregarEntrada()">
+      <div class="row form-group p-2">
+        <div class="col-12 mt-2">
+          <div class="p-grid">
+            <div class="p-col-6">
+              <div class="box">{{date | date: 'yyyy-MM-dd'}}</div>
+            </div>
+            <div class="p-col-6">
+              <div class="box">{{festivo ? "Es dia festivo":"No es Dia Festivo"}}</div>
+            </div>
+            <div class="p-col-6">
+              <div class="box">
+                <label for="persona">Trabajador</label>
+                <div class="row">
+                  <div class="col-12 mt-2 mb-2">
+                    <select
+                      class="custom-select"
+                      (change)="onPersonaChange()"
+                      formControlName="persona"
+                      id="persona"
+                      [ngClass]="{
+                        'is-valid': persona.dirty && !persona.invalid,
+                        'is-invalid': persona.dirty && persona.invalid
+                      }"
+                    >
+                      <option [ngValue]="null" disabled
+                        >--Seleccione un Trabajador--</option
+                      >
+                      <option
+                        [ngValue]="persona"
+                        *ngFor="let persona of personas"
+                        >{{ persona.nombre }}</option
+                      >
+                    </select>
+                    <div
+                      *ngIf="persona.invalid && formEntrada.dirty"
+                      class="error"
+                    >
+                      Trabajador Requerido
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="p-col-6">
+              <div class="box">
+                <label for="proyecto">Proyecto</label>
+                <div class="row">
+                  <div class="col-12 mt-2 mb-2">
+                    <select
+                      class="custom-select is-valid"
+                      formControlName="proyecto"
+                      id="proyecto"
+                      [ngClass]="{
+                        'is-valid': proyecto.dirty && !proyecto.invalid,
+                        'is-invalid': proyecto.dirty && proyecto.invalid
+                      }"
+                    >
+                      <option [ngValue]="null" disabled
+                        >--Seleccione un Proyecto--</option
+                      >
+                      <option
+                        [ngValue]="proyecto"
+                        *ngFor="let proyecto of proyectos"
+                        >{{ proyecto.nombre }}</option
+                      >
+                    </select>
+                    <div
+                      *ngIf="proyecto.invalid && formEntrada.dirty"
+                      class="error"
+                    >
+                      Proyecto Requerido Requerido
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="p-col-6">
+              <div class="box">1</div>
+            </div>
+            <div class="p-col-6">
+              <div class="box">2</div>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="p-col">
-        <div class="ui-g-12">
-          <h3 class="first">Proyecto</h3>
-          <p-multiSelect
-            [options]="proyectos"
-            defaultLabel="Seleccione"
-            [selectionLimit]="1"
-            [(ngModel)]="selectedProyecto"
-          ></p-multiSelect>
-          <p>
-            Proyecto Seleccionado:
-            {{ selectedProyecto ? selectedProyecto : "Ninguno" }}
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="ui-g-12">
-    <div class="p-grid">
-      <div class="p-col">
-        <div class="ui-g-12 ui-md-12">
-          <h4>Hora de Entrada</h4>
-          <p-calendar [(ngModel)]="time" [timeOnly]="true"></p-calendar>
-        </div>
-      </div>
-      <div class="p-col">
-        <div class="ui-g-12 ui-md-12">
-          <h4>Hora de Salida</h4>
-          <p-calendar [(ngModel)]="time2" [timeOnly]="true"></p-calendar>
-        </div>
-      </div>
-      <div class="p-col">
-        <div class="ui-g-12 ui-md-12">
-          <button
-            pButton
-            type="button"
-            label="Agregar"
-            class="ui-button-rounded ui-button-success"
-          ></button>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="ui-g-12">
-    <p-panel>
-      <p-table></p-table>
-    </p-panel>
+    </form>
   </div>
 </div>
-
+<div class="ui-g-12">
+  <p-panel>
+    <p-table></p-table>
+  </p-panel>
+</div>
 <p-dialog
   [(visible)]="display"
   [focusOnShow]="false"

@@ -1,7 +1,20 @@
 // Angular
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewEncapsulation } from "@angular/core";
+import {
+  trigger,
+  state,
+  style,
+  transition,
+  animate,
+  AnimationEvent
+} from "@angular/animations";
+import {
+  FormBuilder,
+  FormGroup,
+  FormControl,
+  Validators
+} from "@angular/forms";
 // PrimeNg
-import { SelectItem } from "primeng/api";
 import { MessageService, ConfirmationService } from "primeng/api";
 //Modelo
 import { Persona } from "src/app/models/Persona";
@@ -14,11 +27,37 @@ import { ProyectoService } from "src/app/services/proyecto.service";
 @Component({
   selector: "app-entradas",
   templateUrl: "./entradas.component.html",
-  styleUrls: ["./entradas.component.scss"]
+  styleUrls: ["./entradas.component.scss"],
+  animations: [
+    trigger("animation", [
+      state(
+        "visible",
+        style({
+          transform: "translateX(0)",
+          opacity: 1
+        })
+      ),
+      transition("void => *", [
+        style({ transform: "translateX(50%)", opacity: 0 }),
+        animate("300ms ease-out")
+      ]),
+      transition("* => void", [
+        animate(
+          "250ms ease-in",
+          style({
+            height: 0,
+            opacity: 0,
+            transform: "translateX(50%)"
+          })
+        )
+      ])
+    ])
+  ],
+  encapsulation: ViewEncapsulation.None
 })
 export class EntradasComponent implements OnInit {
-  personas: SelectItem[];
-  proyectos: SelectItem[];
+  personas: Persona[];
+  proyectos: Proyecto[];
   selectedPersona: Persona;
   selectedProyecto: Proyecto;
   display: boolean;
@@ -31,26 +70,38 @@ export class EntradasComponent implements OnInit {
   isSignUpFailed = false;
   form: any = {};
   errorMessage = "";
+  public formEntrada: FormGroup;
 
   constructor(
     private personaService: PersonaService,
     private proyectoService: ProyectoService,
     private messageService: MessageService,
     private confirmationService: ConfirmationService,
-    private authService: AuthService
+    private authService: AuthService,
+    private formBuilder: FormBuilder
   ) {
     this.display = false;
-    this.personas = [{ label: "nombre", value: "cedula" }];
-    this.proyectos = [{ label: "nombre", value: "idProyecto" }];
+    this.festivo = false;
+    this.date = new Date;
+    this.personas = [];
+    this.proyectos = [];
+    this.formEntrada = this.formBuilder.group({
+      persona: new FormControl(null, Validators.required),
+      proyecto: new FormControl(null, Validators.required),
+      entrada: new FormControl("", Validators.required),
+      salida: new FormControl("", Validators.required)
+    });
   }
 
   getAllPersona() {
     this.personaService.getAll().subscribe(
       (result: any) => {
+        let personas: Persona[] = [];
         for (let i = 0; i < result.length; i++) {
           let persona = result[i] as Persona;
-          this.personas[i] = { label: persona.nombre, value: persona.cedula };
+          personas.push(persona);
         }
+        this.personas = personas;
       },
       error => {
         console.log(error);
@@ -61,13 +112,12 @@ export class EntradasComponent implements OnInit {
   getAllProyecto() {
     this.proyectoService.getAll().subscribe(
       (result: any) => {
+        let proyectos: Proyecto[] = [];
         for (let i = 0; i < result.length; i++) {
           let proyecto = result[i] as Proyecto;
-          this.proyectos[i] = {
-            label: proyecto.nombre,
-            value: proyecto.idProyecto
-          };
+          proyectos.push(proyecto);
         }
+        this.proyectos = proyectos;
       },
       error => {
         console.log(error);
@@ -87,6 +137,24 @@ export class EntradasComponent implements OnInit {
         this.isSignUpFailed = true;
       }
     );
+  }
+
+  agregarEntrada() {
+    console.log(this.formEntrada.value);
+  }
+
+  get persona() {
+    return this.formEntrada.get("persona");
+  }
+
+  get proyecto(){
+    return this.formEntrada.get("proyecto")
+  }
+
+  onPersonaChange(){
+    let persona: Persona = this.persona.value;
+    console.log("Persona Seleccionada: " + persona.nombre);
+    
   }
 
   ngOnInit(): void {
