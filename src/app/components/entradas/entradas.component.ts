@@ -5,6 +5,7 @@ import { SelectItem } from "primeng/api";
 import { MessageService, ConfirmationService } from "primeng/api";
 //Modelo
 import { Persona } from "src/app/models/Persona";
+import { Proyecto } from "src/app/models/Proyecto";
 // Servicios
 import { PersonaService } from "src/app/services/persona.service";
 import { AuthService } from "src/app/services/auth.service";
@@ -17,10 +18,14 @@ import { ProyectoService } from "src/app/services/proyecto.service";
 })
 export class EntradasComponent implements OnInit {
   personas: SelectItem[];
+  proyectos: SelectItem[];
   selectedPersona: Persona;
+  selectedProyecto: Proyecto;
   display: boolean;
   es: any;
   date: Date;
+  time: Date;
+  time2: Date;
   festivo: boolean;
   isSuccessful = false;
   isSignUpFailed = false;
@@ -35,9 +40,8 @@ export class EntradasComponent implements OnInit {
     private authService: AuthService
   ) {
     this.display = false;
-    this.personas = [
-      {label: 'nombre', value: 'cedula'}
-    ]
+    this.personas = [{ label: "nombre", value: "cedula" }];
+    this.proyectos = [{ label: "nombre", value: "idProyecto" }];
   }
 
   getAllPersona() {
@@ -45,7 +49,7 @@ export class EntradasComponent implements OnInit {
       (result: any) => {
         for (let i = 0; i < result.length; i++) {
           let persona = result[i] as Persona;
-          this.personas[i]= {label: persona.nombre , value : persona.cedula};
+          this.personas[i] = { label: persona.nombre, value: persona.cedula };
         }
       },
       error => {
@@ -54,8 +58,21 @@ export class EntradasComponent implements OnInit {
     );
   }
 
-  getAllProyecto(){
-    
+  getAllProyecto() {
+    this.proyectoService.getAll().subscribe(
+      (result: any) => {
+        for (let i = 0; i < result.length; i++) {
+          let proyecto = result[i] as Proyecto;
+          this.proyectos[i] = {
+            label: proyecto.nombre,
+            value: proyecto.idProyecto
+          };
+        }
+      },
+      error => {
+        console.log(error);
+      }
+    );
   }
 
   onSubmit() {
@@ -74,6 +91,7 @@ export class EntradasComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllPersona();
+    this.getAllProyecto();
     this.es = {
       firstDayOfWeek: 1,
       dayNames: [
