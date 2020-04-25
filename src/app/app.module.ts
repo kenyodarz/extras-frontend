@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import { FlexLayoutModule } from "@angular/flex-layout";
 
 /* Modulos */
 import { AppRoutingModule } from './app-routing.module';
@@ -56,13 +57,14 @@ import { EntradasComponent } from './components/entradas/entradas.component';
     HttpClientModule,
     MaterialModule,
     PrimengModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FlexLayoutModule
   ],
   providers: [
-    MessageService, 
+    MessageService,
     ConfirmationService,
     authInterceptorProviders,
-    { provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher },
+    { provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher }
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent]

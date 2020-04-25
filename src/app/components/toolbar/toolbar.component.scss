@@ -14,3 +14,8 @@ a {
   background:
     #007ad9;
 }
+.example-fill-remaining-space {
+  /* Esto llena el espacio restante, usando la caja flexible. 
+     Cada fila de la barra de herramientas utiliza un diseño de fila de flexbox. */
+  flex: 1 1 auto;
+}
