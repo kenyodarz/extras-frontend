@@ -65,7 +65,7 @@ export class EntradasComponent implements OnInit {
   date: Date;
   entradaHora: Date;
   salidaHora: Date;
-  festivo: boolean;
+  isfestivo: boolean;
   isSuccessful = false;
   isSignUpFailed = false;
   form: any = {};
@@ -80,16 +80,16 @@ export class EntradasComponent implements OnInit {
     private authService: AuthService,
     private formBuilder: FormBuilder
   ) {
-    this.display = false;
-    this.festivo = false;
-    this.date = new Date;
+    this.display = true;
     this.personas = [];
     this.proyectos = [];
     this.formEntrada = this.formBuilder.group({
       persona: new FormControl(null, Validators.required),
       proyecto: new FormControl(null, Validators.required),
-      entrada: new FormControl(null, Validators.required),
-      salida: new FormControl(null, Validators.required)
+      hora_entrada: new FormControl(null, Validators.required),
+      hora_salida: new FormControl(null, Validators.required),
+      fecha: new FormControl(null, Validators.required),
+      festivo: new FormControl(false, Validators.required)
     });
   }
 
@@ -147,21 +147,36 @@ export class EntradasComponent implements OnInit {
     return this.formEntrada.get("persona");
   }
 
-  get proyecto(){
-    return this.formEntrada.get("proyecto")
+  get proyecto() {
+    return this.formEntrada.get("proyecto");
   }
 
-  get entrada(){
-    return this.formEntrada.get("entrada")
+  get hora_entrada() {
+    return this.formEntrada.get("hora_entrada");
   }
 
-  get salida(){
-    return this.formEntrada.get("salida")
+  get hora_salida() {
+    return this.formEntrada.get("hora_salida");
   }
 
-  onPersonaChange(){
+  get fecha() {
+    return this.formEntrada.get("fecha");
+  }
+
+  get festivo() {
+    return this.formEntrada.get("festivo");
+  }
+
+  onPersonaChange() {
     let persona: Persona = this.persona.value;
     console.log("Persona Seleccionada: " + persona.nombre);
+  }
+
+  aceptar() {
+    this.display = false;
+  }
+
+  cancelar(){
     
   }
 

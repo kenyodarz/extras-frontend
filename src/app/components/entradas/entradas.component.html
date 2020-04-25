@@ -5,11 +5,21 @@
         <div class="col-12 mt-2">
           <div class="p-grid">
             <div class="p-col-6">
-              <div class="box">{{ date | date: "yyyy-MM-dd" }}</div>
+              <div class="box">
+                <div class="row">
+                  <div class="col-12" id="fecha" ngDefaultControl formControlName="fecha">
+                    {{ date | date: "yyyy-MM-dd" }}
+                  </div>
+                </div>
+              </div>
             </div>
             <div class="p-col-6">
               <div class="box">
-                {{ festivo ? "Es dia festivo" : "No es Dia Festivo" }}
+                <div class="row">
+                  <div class="col-12" id="festivo" ngDefaultControl formControlName="festivo">
+                    {{ isfestivo ? "Es dia festivo" : "No es Dia Festivo" }}
+                  </div>
+                </div>
               </div>
             </div>
             <div class="p-col-6">
@@ -87,16 +97,16 @@
                     <p-calendar
                       [(ngModel)]="entradaHora"
                       [timeOnly]="true"
-                      formControlName="entrada"
+                      formControlName="hora_entrada"
                       [readonlyInput]="true"
                       inputStyleClass="form-control"
                       [ngClass]="{
-                        'is-valid': entrada.dirty && !entrada.invalid,
-                        'is-invalid': entrada.dirty && entrada.invalid
+                        'is-valid': hora_entrada.dirty && !hora_entrada.invalid,
+                        'is-invalid': hora_entrada.dirty && hora_entrada.invalid
                       }"
                     ></p-calendar>
                     <div
-                      *ngIf="entrada.invalid && formEntrada.dirty"
+                      *ngIf="hora_entrada.invalid && formEntrada.dirty"
                       class="error"
                     >
                       Seleccione la hora ingreso
@@ -113,20 +123,29 @@
                     <p-calendar
                       [(ngModel)]="salidaHora"
                       [timeOnly]="true"
-                      formControlName="salida"
+                      formControlName="hora_salida"
                       [readonlyInput]="true"
                       inputStyleClass="form-control"
                       [ngClass]="{
-                        'is-valid': salida.dirty && !salida.invalid,
-                        'is-invalid': salida.dirty && salida.invalid
+                        'is-valid': hora_salida.dirty && !hora_salida.invalid,
+                        'is-invalid': hora_salida.dirty && hora_salida.invalid
                       }"
                     ></p-calendar>
                     <div
-                      *ngIf="salida.invalid && formEntrada.dirty"
+                      *ngIf="hora_salida.invalid && formEntrada.dirty"
                       class="error"
                     >
                       Seleccione la hora de salida
                     </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="p-col-12">
+              <div class="box">
+                <div class="row">
+                  <div class="col-12">
+                    <button [disabled]="formEntrada.invalid" class="btn btn-block btn-primary" type="submit">Registrar Entrada</button>
                   </div>
                 </div>
               </div>
@@ -165,6 +184,7 @@
         <p-calendar
           [(ngModel)]="date"
           [locale]="es"
+          [required]
           dateFormat="yy-mm-dd"
         ></p-calendar>
       </div>
@@ -174,10 +194,10 @@
         <label for="festivo">¿Festivo?</label>
       </div>
       <div class="ui-g-4">
-        <p-checkbox [(ngModel)]="festivo" binary="true"></p-checkbox>
+        <p-checkbox [(ngModel)]="isfestivo" binary="true"></p-checkbox>
       </div>
       <div class="ui-g-5">
-        <h3>{{ festivo ? "Si" : "No" }}</h3>
+        <h3>{{ isfestivo ? "Si" : "No" }}</h3>
       </div>
     </div>
   </div>
@@ -188,12 +208,14 @@
         type="button"
         label="Aceptar"
         class="ui-button-raised"
+        (click)="aceptar()"
       ></button>
       <button
         pButton
-        type="button"
+        type="submit"
         label="Cancelar"
         class="ui-button-raised ui-button-danger"
+        (click)="cancelar()"
       ></button>
     </div>
   </p-footer>

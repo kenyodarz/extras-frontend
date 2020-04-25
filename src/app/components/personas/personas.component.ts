@@ -25,11 +25,7 @@ export class PersonasComponent implements OnInit {
     nombre: null,
     salario: null
   };
-  selectedPersona: Persona = {
-    cedula: null,
-    nombre: null,
-    salario: null
-  };
+  selectedPersona: Persona;
 
   constructor(
     private personaService: PersonaService,

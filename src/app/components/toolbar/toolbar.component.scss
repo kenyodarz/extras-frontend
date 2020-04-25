@@ -19,3 +19,11 @@ a {
      Cada fila de la barra de herramientas utiliza un diseño de fila de flexbox. */
   flex: 1 1 auto;
 }
+
+.mat-drawer-content {
+    position: fixed;
+    z-index: 1;
+    display: contents;
+    height: 100%;
+    overflow: auto;
+}

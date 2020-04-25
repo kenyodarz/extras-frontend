@@ -28,10 +28,7 @@ export class ProyectosComponent implements OnInit {
     idProyecto: null,
     nombre: null
   };
-  selectedProyecto: Proyecto = {
-    idProyecto: null,
-    nombre: null
-  };
+  selectedProyecto: Proyecto;
 
   constructor(
     private proyectoService: ProyectoService,
