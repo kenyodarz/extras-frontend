@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { TokenStorageService } from "src/app/services/token-storage.service";
 import { AuthService } from "src/app/services/auth.service";
+import { Router } from "@angular/router";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 
 @Component({
@@ -16,6 +17,7 @@ export class LoginComponent implements OnInit {
   roles: string[];
 
   constructor(
+    private router: Router,
     private authService: AuthService,
     private tokenStorage: TokenStorageService
   ) {}
@@ -33,7 +35,7 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.form);
+    // console.log(this.form);
     this.authService.login(this.form).subscribe(
       data => {
         this.tokenStorage.saveToken(data.accessToken);
@@ -52,7 +54,10 @@ export class LoginComponent implements OnInit {
   }
 
   reloadPage() {
-    window.location.reload();
+    window.location.reload;
   }
+
+  
+  
 }
 

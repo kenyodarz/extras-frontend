@@ -26,6 +26,7 @@ import { TabViewModule } from "primeng/tabview";
 import { CodeHighlighterModule } from "primeng/codehighlighter";
 import { CheckboxModule } from "primeng/checkbox";
 import { MultiSelectModule } from "primeng/multiselect";
+import { SidebarModule } from "primeng/sidebar";
 
 const myModule = [
   MessagesModule,
@@ -51,7 +52,8 @@ const myModule = [
   ChartModule,
   CardModule,
   CheckboxModule,
-  MultiSelectModule
+  MultiSelectModule,
+  SidebarModule
 ];
 
 @NgModule({

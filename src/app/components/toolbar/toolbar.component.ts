@@ -16,6 +16,7 @@ export class ToolbarComponent implements OnInit {
   showProyectosBoard = false;
   showRegistrosBoard = false;
   showEntradasBoard = false;
+  visibleSidebar = false;
   username: string;
   showSupervisorBoard = false;
 

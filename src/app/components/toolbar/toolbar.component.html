@@ -1,16 +1,16 @@
 <div class="row no-gutters">
   <div class="col-12 mt-2 mb-2">
-    <div style="height: 90vh;">
+    <div>
       <mat-toolbar color="primary">
         <mat-toolbar-row>
           <button
-            mat-icon-button
-            (click)="sidenav.toggle()"
+            pButton
+            type="button"
+            (click)="visibleSidebar = true"
+            icon="pi pi-bars"
             fxShow="true"
             fxHide.gt-sm
-          >
-            <mat-icon>menu</mat-icon>
-          </button>
+          ></button>
           <span [routerLink]="['/']">{{ appName }}</span>
           <span class="example-spacer"></span>
           <div fxShow="true" fxHide.lt-md="true">
@@ -91,10 +91,9 @@
           </div>
         </mat-toolbar-row>
       </mat-toolbar>
-
-      <mat-sidenav-container fxFlexFill>
-        <mat-sidenav #sidenav>
-          <mat-nav-list>
+      <p-sidebar [(visible)]="visibleSidebar" [baseZIndex]="10000">
+        <h1 style="font-weight:normal">Menu</h1>
+        <mat-nav-list>
             <a
               mat-list-item
               [routerLink]="['/personas']"
@@ -163,19 +162,16 @@
               Acerca de
             </a>
 
-            <a (click)="sidenav.toggle()" mat-list-item>
+            <a (click)="visibleSidebar = false" mat-list-item>
               <mat-icon>close</mat-icon> Close
             </a>
           </mat-nav-list>
-        </mat-sidenav>
-        <mat-sidenav-content fxFlexFill>
-          <div class="row">
-            <div class="col-12">
-              <router-outlet></router-outlet>
-            </div>
-          </div>
-        </mat-sidenav-content>
-      </mat-sidenav-container>
+      </p-sidebar>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <router-outlet></router-outlet>
+      </div>
     </div>
   </div>
 </div>

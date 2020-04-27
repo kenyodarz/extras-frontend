@@ -29,11 +29,11 @@ const routes: Routes = [
   { path: "proyectos", component: ProyectosComponent },
   { path: "registros", component: RegistrosComponent },
   { path: "entradas", component: EntradasComponent },
-  { path: "", redirectTo: "home", pathMatch: "full" }
+  { path: "**", pathMatch: "full", redirectTo: "home" }
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

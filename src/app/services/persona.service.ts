@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { Persona } from "src/app/models/Persona";
 
-const API_URL: String = "http://localhost:8080/extras-backend/api/persona/";
+const API_URL: String = "http://186.114.95.46/extras-backend/api/persona/";
 @Injectable({
   providedIn: 'root'
 })
