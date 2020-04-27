@@ -1,11 +1,11 @@
-#agregarEntrada{
+#agregarEntrada {
   padding: 10px;
 }
 
 #agregarEntrada p-calendar .form-control:disabled,
-#agregarEntrada p-calendar .form-control[readonly]{
-    background: #fff;
-    text-align: center;
+#agregarEntrada p-calendar .form-control[readonly] {
+  background: #fff;
+  text-align: center;
 }
 
 .ui-dialog-content.ui-widget-content.ng-tns-c65-0 {
@@ -41,4 +41,20 @@
 
 .nested-grid .p-col-4 {
   padding-bottom: 1em;
+}
+
+:host ::ng-deep button {
+  margin-right: 0.25em;
+}
+
+:host ::ng-deep .ui-message,
+:host ::ng-deep .ui-inputtext {
+  margin-right: 0.25em;
+}
+
+:host ::ng-deep .custom-message,
+:host ::ng-deep img {
+  align-self: center;
+  font-size: 16px;
+  margin-left: 0.5em;
 }
