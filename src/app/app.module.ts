@@ -31,6 +31,8 @@ import { PersonasComponent } from './components/personas/personas.component';
 import { ProyectosComponent } from './components/proyectos/proyectos.component';
 import { RegistrosComponent } from './components/registros/registros.component';
 import { EntradasComponent } from './components/entradas/entradas.component';
+import { Table, TableService } from 'primeng/table';
+import { InformesComponent } from './components/informes/informes.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +49,8 @@ import { EntradasComponent } from './components/entradas/entradas.component';
     PersonasComponent,
     ProyectosComponent,
     RegistrosComponent,
-    EntradasComponent
+    EntradasComponent,
+    InformesComponent
   ],
   imports: [
     BrowserModule,
@@ -64,6 +67,7 @@ import { EntradasComponent } from './components/entradas/entradas.component';
     MessageService,
     ConfirmationService,
     authInterceptorProviders,
+    TableService, Table,
     { provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher }
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

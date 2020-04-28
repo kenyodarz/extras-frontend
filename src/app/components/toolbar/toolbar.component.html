@@ -46,10 +46,19 @@
               mat-button
               [routerLink]="['/entradas']"
               routerLinkActive="router-link-active"
-              *ngIf="showProyectosBoard"
+              *ngIf="showEntradasBoard"
             >
               <mat-icon>assignment</mat-icon>
               Entradas
+            </a>
+            <a
+              mat-button
+              [routerLink]="['/informes']"
+              routerLinkActive="router-link-active"
+              *ngIf="showInformesBoard"
+            >
+              <mat-icon>gavel</mat-icon>
+              Informes
             </a>
             <!-- <a href="#" mat-button>
           <mat-icon>notifications</mat-icon>
@@ -94,78 +103,78 @@
       <p-sidebar [(visible)]="visibleSidebar" [baseZIndex]="10000">
         <h1 style="font-weight:normal">Menu</h1>
         <mat-nav-list>
-            <a
-              mat-list-item
-              [routerLink]="['/personas']"
-              routerLinkActive="router-link-active"
-              *ngIf="showPersonasBoard"
-            >
-              <mat-icon>people</mat-icon>
-              Personas
-            </a>
-            <a
-              mat-list-item
-              [routerLink]="['/proyectos']"
-              routerLinkActive="router-link-active"
-              *ngIf="showProyectosBoard"
-            >
-              <mat-icon>play_for_work</mat-icon>
-              Proyectos
-            </a>
-            <a
-              mat-list-item
-              [routerLink]="['/registros']"
-              routerLinkActive="router-link-active"
-              *ngIf="showProyectosBoard"
-            >
-              <mat-icon>description</mat-icon>
-              Registros
-            </a>
-            <a
-              mat-list-item
-              [routerLink]="['/entradas']"
-              routerLinkActive="router-link-active"
-              *ngIf="showProyectosBoard"
-            >
-              <mat-icon>assignment</mat-icon>
-              Entradas
-            </a>
+          <a
+            mat-list-item
+            [routerLink]="['/personas']"
+            routerLinkActive="router-link-active"
+            *ngIf="showPersonasBoard"
+          >
+            <mat-icon>people</mat-icon>
+            Personas
+          </a>
+          <a
+            mat-list-item
+            [routerLink]="['/proyectos']"
+            routerLinkActive="router-link-active"
+            *ngIf="showProyectosBoard"
+          >
+            <mat-icon>play_for_work</mat-icon>
+            Proyectos
+          </a>
+          <a
+            mat-list-item
+            [routerLink]="['/registros']"
+            routerLinkActive="router-link-active"
+            *ngIf="showProyectosBoard"
+          >
+            <mat-icon>description</mat-icon>
+            Registros
+          </a>
+          <a
+            mat-list-item
+            [routerLink]="['/entradas']"
+            routerLinkActive="router-link-active"
+            *ngIf="showProyectosBoard"
+          >
+            <mat-icon>assignment</mat-icon>
+            Entradas
+          </a>
 
-            <a
-              mat-list-item
-              *ngIf="isLoggedIn"
-              [routerLink]="['/profile']"
-              routerLinkActive="router-link-active"
-            >
-              <mat-icon>account_box</mat-icon>
-              {{ username }}
-            </a>
-            <a mat-list-item (click)="logout()" href="/" *ngIf="isLoggedIn">
-              <mat-icon>highlight_off</mat-icon>
-              Cerrar Sesion
-            </a>
-            <a
-              [routerLink]="['/login']"
-              *ngIf="!isLoggedIn"
-              routerLinkActive="router-link-active"
-              mat-list-item
-            >
-              <mat-icon>account_circle</mat-icon>
-              Iniciar Sesion
-            </a>
-            <a
-              mat-list-item
-              [routerLink]="['/about']"
-              routerLinkActive="router-link-active"
-            >
-              <mat-icon>group_work</mat-icon>
-              Acerca de
-            </a>
+          <a
+            mat-list-item
+            *ngIf="isLoggedIn"
+            [routerLink]="['/profile']"
+            routerLinkActive="router-link-active"
+          >
+            <mat-icon>account_box</mat-icon>
+            {{ username }}
+          </a>
+          <a mat-list-item (click)="logout()" href="/" *ngIf="isLoggedIn">
+            <mat-icon>highlight_off</mat-icon>
+            Cerrar Sesion
+          </a>
+          <a
+            [routerLink]="['/login']"
+            *ngIf="!isLoggedIn"
+            routerLinkActive="router-link-active"
+            mat-list-item
+          >
+            <mat-icon>account_circle</mat-icon>
+            Iniciar Sesion
+          </a>
+          <a
+            mat-list-item
+            [routerLink]="['/about']"
+            routerLinkActive="router-link-active"
+          >
+            <mat-icon>group_work</mat-icon>
+            Acerca de
+          </a>
 
-            <a (click)="visibleSidebar = false" mat-list-item>
-              <mat-icon>close</mat-icon> Close
-            </a>
-          </mat-nav-list>
+          <a (click)="visibleSidebar = false" mat-list-item>
+            <mat-icon>close</mat-icon> Close
+          </a>
+        </mat-nav-list>
       </p-sidebar>
     </div>
     <div class="row">

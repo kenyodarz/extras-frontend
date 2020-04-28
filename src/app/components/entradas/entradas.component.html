@@ -21,12 +21,9 @@
                       dateFormat="yy-mm-dd"
                       inputStyleClass="form-control"
                       [readonlyInput]
+                      [required]
                       showButtonBar="true"
                       (ngModelChange)="onFechaChange()"
-                      [ngClass]="{
-                        'is-valid': fecha.dirty && !fecha.invalid,
-                        'is-invalid': fecha.dirty && fecha.invalid
-                      }"
                     ></p-calendar>
                     <div
                       *ngIf="fecha.invalid && formEntrada.dirty"
@@ -229,6 +226,7 @@
   </p-confirmDialog>
   <p-panel
     header="Registro Diarios"
+    [toggleable]="true"
     [style]="{ width: '100%', margin: '0 auto' }"
   >
     <div style="margin-bottom: 20px;">

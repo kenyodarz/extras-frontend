@@ -16,6 +16,7 @@ export class ToolbarComponent implements OnInit {
   showProyectosBoard = false;
   showRegistrosBoard = false;
   showEntradasBoard = false;
+  showInformesBoard = false;
   visibleSidebar = false;
   username: string;
   showSupervisorBoard = false;
@@ -34,6 +35,7 @@ export class ToolbarComponent implements OnInit {
       this.showProyectosBoard = this.roles.includes("ROLE_ADMIN");
       this.showRegistrosBoard = this.roles.includes("ROLE_ADMIN");
       this.showEntradasBoard = this.roles.includes("ROLE_ADMIN");
+      this.showInformesBoard = this.roles.includes("ROLE_ADMIN");
 
       this.username = user.username;
     }
@@ -41,5 +43,6 @@ export class ToolbarComponent implements OnInit {
   logout() {
     this.tokenStorageService.singOut();
     window.location.reload();
+    // window.location.replace("/extras/");
   }
 }

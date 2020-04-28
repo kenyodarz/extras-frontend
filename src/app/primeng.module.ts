@@ -27,6 +27,7 @@ import { CodeHighlighterModule } from "primeng/codehighlighter";
 import { CheckboxModule } from "primeng/checkbox";
 import { MultiSelectModule } from "primeng/multiselect";
 import { SidebarModule } from "primeng/sidebar";
+import { TreeTableModule } from "primeng/treetable";
 
 const myModule = [
   MessagesModule,
@@ -53,7 +54,8 @@ const myModule = [
   CardModule,
   CheckboxModule,
   MultiSelectModule,
-  SidebarModule
+  SidebarModule,
+  TreeTableModule
 ];
 
 @NgModule({

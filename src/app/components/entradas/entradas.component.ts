@@ -91,6 +91,7 @@ export class EntradasComponent implements OnInit {
     private formBuilder: FormBuilder
   ) {
     this.display = true;
+    this.date = null;
     this.personas = [];
     this.proyectos = [];
     this.registros = [];

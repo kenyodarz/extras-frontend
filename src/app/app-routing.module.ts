@@ -1,7 +1,7 @@
 // Angular
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-// Entradas
+// Componentes
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
@@ -14,6 +14,7 @@ import { EntradasComponent } from './components/entradas/entradas.component';
 import { RegistrosComponent } from './components/registros/registros.component';
 import { ProyectosComponent } from './components/proyectos/proyectos.component';
 import { PersonasComponent } from './components/personas/personas.component';
+import { InformesComponent } from './components/informes/informes.component';
 
 
 const routes: Routes = [
@@ -29,11 +30,12 @@ const routes: Routes = [
   { path: "proyectos", component: ProyectosComponent },
   { path: "registros", component: RegistrosComponent },
   { path: "entradas", component: EntradasComponent },
+  { path: "informes", component: InformesComponent },
   { path: "**", pathMatch: "full", redirectTo: "home" }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, {useHash: true} )],
   exports: [RouterModule]
 })
 export class AppRoutingModule {}

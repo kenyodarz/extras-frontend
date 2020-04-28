@@ -1,0 +1,69 @@
+<div class="ui-g">
+  <p-panel
+    header="Informes"
+    [toggleable]="true"
+    [style]="{ width: '100%', margin: '0 auto' }"
+  >
+    <div style="margin-bottom: 20px;">
+      <p-menubar [model]="items"></p-menubar>
+    </div>
+    <p-table
+      [value]="registros"
+      sortField="persona.cedula"
+      sortMode="single"
+      (onSort)="onSort()"
+    >
+      <ng-template pTemplate="header">
+        <tr>
+          <th *ngFor="let col of cols">
+            {{ col.header }}
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template
+        pTemplate="body"
+        let-rowData
+        let-rowIndex="rowIndex"
+        let-expanded="expanded"
+        let-columns="columns"
+      >
+        <tr
+          class="ui-widget-header"
+          *ngIf="rowGroupMetadata[rowData.persona.cedula].index === rowIndex"
+        >
+          <td colspan="2">
+            <a href="#" [pRowToggler]="rowData">
+              <i
+                [ngClass]="
+                  expanded
+                    ? 'pi pi-fw pi-chevron-circle-down'
+                    : 'pi pi-fw pi-chevron-circle-right'
+                "
+                style="vertical-align: middle;padding-bottom: .1em;"
+              ></i>
+              <span>{{ rowData.persona.nombre }}</span>
+            </a>
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+        <tr
+          class="ui-widget-header"
+          *ngIf="rowGroupMetadata[rowData.persona.cedula].index === rowIndex"
+        >
+          <td colspan="3">
+            <span style="font-weight:bold">{{ rowData.persona.nombre }}</span>
+          </td>
+        </tr>
+        <tr>
+          <td>{{ rowData.hora_ordinaria }}</td>
+          <td>{{ rowData.recargo_nocturno }}</td>
+          <td>{{ rowData.hora_extra }}</td>
+          <td>{{ rowData.hora_extra_nocturna }}</td>
+          <td>{{ rowData.hora_extra_festiva }}</td>
+          <td>{{ rowData.hora_extra_festiva_nocturna }}</td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </p-panel>
+</div>
