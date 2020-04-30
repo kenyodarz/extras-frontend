@@ -117,3 +117,31 @@
     </p-table>
   </p-panel>
 </div>
+
+<p-dialog header="Seleccione Rango de Fechas" [(visible)]="display">
+  <div class="ui-g ui-fluid">
+    <div class="ui-g-4">
+      <label for="fechaInicial">Fecha Inicio</label>
+    </div>
+    <div class="ui-g-8">
+      <p-calendar [(ngModel)]="fechaInicial"  [locale]="es"></p-calendar>
+    </div>
+    <div class="ui-g-4">
+      <label for="fechaFinal">Fecha Fin</label>
+    </div>
+    <div class="ui-g-8">
+      <p-calendar [(ngModel)]="fechaFinal" [locale]="es"></p-calendar>
+    </div>
+  </div>
+  <p-footer>
+    <div class="ui-dialog-buttonpane ui-helper-clearfix">
+      <button
+        type="button"
+        pButton
+        icon="pi pi-check"
+        (click)="(!display)"
+        label="Guardar"
+      ></button>
+    </div>
+  </p-footer>
+</p-dialog>

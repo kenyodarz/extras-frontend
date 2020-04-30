@@ -27,8 +27,14 @@ export class InformesComponent implements OnInit {
   items: MenuItem[];
   prestaciones: boolean;
   total: number;
+  display: boolean;
+  es: any;
+  fechaInicial: Date;
+  fechaFinal: Date;
 
-  constructor(private registroService: RegistroService) {}
+  constructor(private registroService: RegistroService) {
+    this.display=false;
+  }
 
   getAll() {
     this.registroService.getAll().subscribe(
@@ -97,6 +103,50 @@ export class InformesComponent implements OnInit {
   ngOnInit(): void {
     this.total = 0;
     this.getAll();
+    this.es = {
+      firstDayOfWeek: 1,
+      dayNames: [
+        "domingo",
+        "lunes",
+        "martes",
+        "miércoles",
+        "jueves",
+        "viernes",
+        "sábado"
+      ],
+      dayNamesShort: ["dom", "lun", "mar", "mié", "jue", "vie", "sáb"],
+      dayNamesMin: ["D", "L", "M", "X", "J", "V", "S"],
+      monthNames: [
+        "enero",
+        "febrero",
+        "marzo",
+        "abril",
+        "mayo",
+        "junio",
+        "julio",
+        "agosto",
+        "septiembre",
+        "octubre",
+        "noviembre",
+        "diciembre"
+      ],
+      monthNamesShort: [
+        "ene",
+        "feb",
+        "mar",
+        "abr",
+        "may",
+        "jun",
+        "jul",
+        "ago",
+        "sep",
+        "oct",
+        "nov",
+        "dic"
+      ],
+      today: "Hoy",
+      clear: "Borrar"
+    };
     this.cols = [
       {
         field: "persona",

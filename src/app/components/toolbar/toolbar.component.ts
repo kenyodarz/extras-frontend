@@ -43,6 +43,9 @@ export class ToolbarComponent implements OnInit {
   logout() {
     this.tokenStorageService.singOut();
     window.location.reload();
-    // window.location.replace("/extras/");
+    this.irAlInicio();
+  }
+  irAlInicio(){
+    window.location.replace("/extras/");
   }
 }

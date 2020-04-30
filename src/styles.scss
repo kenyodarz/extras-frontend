@@ -7,11 +7,6 @@
 @import "../node_modules/@angular/material/prebuilt-themes/indigo-pink.css";
 @import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 
-@font-face {
-  font-family: Norwester;
-  src: url(/src/assets/fonts/Norwester.otf) format(truetype);
-}
-
 html,
 body {
   height: 100%;
@@ -28,3 +23,5 @@ body {
 html body .ui-calendar {
   display: block;
 }
+
+
