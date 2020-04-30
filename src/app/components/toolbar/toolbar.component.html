@@ -67,7 +67,7 @@
           </div>
           <span class="example-fill-remaining-space"></span>
           <div fxShow="true" fxHide.lt-md="true">
-            <a
+            <!-- <a
               mat-button
               *ngIf="isLoggedIn"
               [routerLink]="['/profile']"
@@ -75,7 +75,7 @@
             >
               <mat-icon>account_box</mat-icon>
               {{ username }}
-            </a>
+            </a> -->
             <a mat-button *ngIf="isLoggedIn" (click)="logout()">
               <mat-icon>highlight_off</mat-icon>
               Cerrar Sesion
@@ -140,7 +140,7 @@
             Entradas
           </a>
 
-          <a
+          <!-- <a
             mat-list-item
             *ngIf="isLoggedIn"
             [routerLink]="['/profile']"
@@ -148,7 +148,7 @@
           >
             <mat-icon>account_box</mat-icon>
             {{ username }}
-          </a>
+          </a> -->
           <a mat-list-item (click)="logout()" href="/" *ngIf="isLoggedIn">
             <mat-icon>highlight_off</mat-icon>
             Cerrar Sesion
@@ -177,10 +177,10 @@
         </mat-nav-list>
       </p-sidebar>
     </div>
-    <div class="row">
-      <div class="col-12">
-        <router-outlet></router-outlet>
-      </div>
-    </div>
+  </div>
+</div>
+<div class="row no-gutters">
+  <div class="col-12">
+    <router-outlet></router-outlet>
   </div>
 </div>

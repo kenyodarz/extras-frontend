@@ -8,11 +8,19 @@ a {
   box-shadow: 0px 0px 0px;
   border-radius: 50%;
   border: transparent;
-  ;
+}
+button{
+  background-color: transparent;
+  border: transparent;
+  border-color: transparent;
+}
+span{
+  font-family: Norwester;
+  font-size: 18pt;
 }
 .mat-toolbar.mat-primary {
-  background:
-    #007ad9;
+  // background: #007ad9;
+  background: transparent;
 }
 .example-fill-remaining-space {
   /* Esto llena el espacio restante, usando la caja flexible. 
@@ -21,11 +29,11 @@ a {
 }
 
 .mat-drawer-content {
-    position: fixed;
-    z-index: 1;
-    display: contents;
-    height: 100%;
-    overflow: auto;
+  position: fixed;
+  z-index: 1;
+  display: contents;
+  height: 100%;
+  overflow: auto;
 }
 
 .example-container {

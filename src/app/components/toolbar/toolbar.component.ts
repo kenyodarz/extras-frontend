@@ -7,7 +7,7 @@ import { TokenStorageService } from "src/app/services/token-storage.service"
   styleUrls: ["./toolbar.component.scss"]
 })
 export class ToolbarComponent implements OnInit {
-  appName = "CDM";
+  appName = "CDM MANTENIMIENTO Y SERVICIOS";
   private roles: string[];
   isLoggedIn = false;
   showAdminBoard = false;

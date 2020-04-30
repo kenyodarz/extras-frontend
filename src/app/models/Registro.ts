@@ -3,7 +3,7 @@ import { Proyecto } from "./Proyecto";
 
 export class Registro {
   constructor(
-    public id: number = null,
+    public id: number,
     public fecha: Date = null,
     public hora_entrada: Date = null,
     public hora_salida: Date = null,
@@ -14,6 +14,9 @@ export class Registro {
     public hora_extra_festiva: number = null,
     public hora_extra_festiva_nocturna: number = null,
     public persona: Array<Persona> = null,
-    public proyecto: Array<Proyecto> = null
+    public proyecto: Array<Proyecto> = null,
+    public festivo: boolean,
+    public salario_con_prestaciones: number,
+    public salario_sin_prestaciones: number
   ) {}
 }

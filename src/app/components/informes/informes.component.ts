@@ -9,9 +9,8 @@ import { Persona } from "src/app/models/Persona";
 // Servicios
 import { RegistroService } from "./../../services/registro.service";
 // Utilidades
-import * as jsPDF from "jspdf"; 
+import * as jsPDF from "jspdf";
 import "jspdf-autotable";
-
 
 @Component({
   selector: "app-informes",
@@ -27,6 +26,7 @@ export class InformesComponent implements OnInit {
   rowGroupMetadata: any;
   items: MenuItem[];
   prestaciones: boolean;
+  total: number;
 
   constructor(private registroService: RegistroService) {}
 
@@ -58,14 +58,35 @@ export class InformesComponent implements OnInit {
         let rowData = this.registros[i].persona["cedula"];
         let persona = rowData;
         if (i == 0) {
-          this.rowGroupMetadata[persona] = { index: 0, size: 1 };
+          console.log(this.registros[i].salario_sin_prestaciones);
+
+          this.rowGroupMetadata[persona] = {
+            index: 0,
+            size: 1,
+            salario_sin_prestaciones: this.registros[i]
+              .salario_sin_prestaciones,
+            salario_con_prestaciones: this.registros[i].salario_con_prestaciones
+          };
         } else {
           let previousRowData = this.registros[i - 1].persona["cedula"];
           let previousRowGroup = previousRowData;
           if (persona === previousRowGroup) {
             this.rowGroupMetadata[persona].size++;
+            this.rowGroupMetadata[persona].salario_sin_prestaciones =
+              this.rowGroupMetadata[persona].salario_sin_prestaciones +
+              this.registros[i].salario_sin_prestaciones;
+            this.rowGroupMetadata[persona].salario_con_prestaciones =
+              this.rowGroupMetadata[persona].salario_con_prestaciones +
+              this.registros[i].salario_con_prestaciones;
           } else {
-            this.rowGroupMetadata[persona] = { index: i, size: 1 };
+            this.rowGroupMetadata[persona] = {
+              index: i,
+              size: 1,
+              salario_sin_prestaciones: this.registros[i]
+                .salario_sin_prestaciones,
+              salario_con_prestaciones: this.registros[i]
+                .salario_con_prestaciones
+            };
           }
         }
       }
@@ -74,9 +95,14 @@ export class InformesComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.total = 0;
     this.getAll();
     this.cols = [
-      // { field: "persona", subfield: "nombre", header: "Persona" },
+      {
+        field: "persona",
+        subfield: "nombre",
+        header: "Persona"
+      },
       // { field: "id", header: "ID" },
       // { field: "fecha", header: "Fecha" },
       // { field: "hora_entrada", header: "Entrada" },
@@ -119,19 +145,19 @@ export class InformesComponent implements OnInit {
     }));
   }
 
-  exportPdf() {
-    import("jspdf").then(jsPDF => {
-      import("jspdf-autotable").then(x => {
-        const doc = new jsPDF.default(0, 0);
-        doc.autoTable(this.exportColumns, this.registros);
-        doc.save("InformesPDF.pdf");
-      });
-    });
-  }
+  // exportPdf() {
+  //   import("jspdf").then(jsPDF => {
+  //     import("jspdf-autotable").then(x => {
+  //       const doc = new jsPDF.default(0, 0);
+  //       // doc.autoTable({html: "#dt"})
+  //       doc.autoTable(this.exportColumns, this.registros);
+  //       doc.save("InformesPDF.pdf");
+  //     });
+  //   });
+  // }
 
   exportExcel() {
     import("xlsx").then(xlsx => {
-      // const worksheet = xlsx.utils.json_to_sheet(this.getAllRegistrosExcel());
       const worksheet = xlsx.utils.table_to_sheet(
         document.getElementById("dt")
       );

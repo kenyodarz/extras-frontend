@@ -87,7 +87,7 @@ export class RegistrosComponent implements OnInit {
         return;
       }
     } else {
-      this.registro = new Registro();
+      // this.registro = new Registro();
     }
     this.displaySaveDialog = true;
   }

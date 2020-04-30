@@ -16,7 +16,7 @@
       (onSort)="onSort()"
       ><ng-template pTemplate="caption">
         <div class="ui-helper-clearfix" style="text-align: left">
-          <button
+          <!-- <button
             type="button"
             pButton
             icon="pi pi-file-o"
@@ -24,7 +24,7 @@
             label="CSV"
             (click)="dt.exportCSV()"
             style="margin-right: 0.5em;"
-          ></button>
+          ></button> -->
           <button
             type="button"
             pButton
@@ -35,7 +35,7 @@
             style="margin-right: 0.5em;"
             class="ui-button-success"
           ></button>
-          <button
+          <!-- <button
             type="button"
             pButton
             icon="pi pi-file-pdf"
@@ -43,8 +43,8 @@
             label="PDF"
             (click)="exportPdf()"
             class="ui-button-warning"
-          ></button>
-          <button
+          ></button> -->
+          <!-- <button
             type="button"
             pButton
             icon="pi pi-file"
@@ -52,16 +52,16 @@
             label="CSV - Selection Only"
             (click)="dt.exportCSV({ selectionOnly: true })"
             style="float:right"
-          ></button>
-          <p-toggleButton 
+          ></button> -->
+          <p-toggleButton
             onIcon="pi pi-check"
             offIcon="pi pi-times"
-            onLabel="Con Prestaciones" 
+            onLabel="Con Prestaciones"
             offLabel="Sin Prestaciones"
             iconPos="left"
-            [style]="{'float':'right'}"
+            [style]="{ float: 'right' }"
             [(ngModel)]="prestaciones"
-          ></p-toggleButton >
+          ></p-toggleButton>
         </div>
       </ng-template>
       <ng-template pTemplate="header">
@@ -83,15 +83,22 @@
         <tr
           class="ui-widget-header"
           *ngIf="rowGroupMetadata[rowData.persona.cedula].index === rowIndex"
-          
         >
           <td colspan="7">
             <span style="font-weight:bold">{{ rowData.persona.nombre }}</span>
           </td>
-          <td></td>
+          <td>
+            {{
+              prestaciones
+                ? (rowGroupMetadata[rowData.persona.cedula]
+                    .salario_con_prestaciones | currency)
+                : (rowGroupMetadata[rowData.persona.cedula]
+                    .salario_sin_prestaciones | currency)
+            }}
+          </td>
         </tr>
         <tr>
-          <td></td>
+          <td>{{ rowData.fecha }}</td>
           <td>{{ rowData.hora_ordinaria }}</td>
           <td>{{ rowData.recargo_nocturno }}</td>
           <td>{{ rowData.hora_extra }}</td>
