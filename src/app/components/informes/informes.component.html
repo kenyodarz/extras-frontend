@@ -84,9 +84,15 @@
           class="ui-widget-header"
           *ngIf="rowGroupMetadata[rowData.persona.cedula].index === rowIndex"
         >
-          <td colspan="7">
+          <td colspan="1">
             <span style="font-weight:bold">{{ rowData.persona.nombre }}</span>
           </td>
+          <td>{{rowGroupMetadata[rowData.persona.cedula].ho}}</td>
+          <td>{{rowGroupMetadata[rowData.persona.cedula].rn}}</td>
+          <td>{{rowGroupMetadata[rowData.persona.cedula].he}}</td>
+          <td>{{rowGroupMetadata[rowData.persona.cedula].hen}}</td>
+          <td>{{rowGroupMetadata[rowData.persona.cedula].hef}}</td>
+          <td>{{rowGroupMetadata[rowData.persona.cedula].hefn}}</td>
           <td>
             {{
               prestaciones

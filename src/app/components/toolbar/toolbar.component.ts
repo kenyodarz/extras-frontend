@@ -34,7 +34,7 @@ export class ToolbarComponent implements OnInit {
       this.showPersonasBoard = this.roles.includes("ROLE_ADMIN");
       this.showProyectosBoard = this.roles.includes("ROLE_ADMIN");
       this.showRegistrosBoard = this.roles.includes("ROLE_ADMIN");
-      this.showEntradasBoard = this.roles.includes("ROLE_ADMIN");
+      this.showEntradasBoard = this.roles.includes("ROLE_USER");
       this.showInformesBoard = this.roles.includes("ROLE_ADMIN");
 
       this.username = user.username;
@@ -46,6 +46,6 @@ export class ToolbarComponent implements OnInit {
     this.irAlInicio();
   }
   irAlInicio(){
-    window.location.replace("/extras/");
+    window.location.replace("#/home/");
   }
 }
