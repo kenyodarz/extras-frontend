@@ -4,9 +4,9 @@
     [toggleable]="true"
     [style]="{ width: '100%', margin: '0 auto' }"
   >
-    <div style="margin-bottom: 20px;">
+    <!-- <div style="margin-bottom: 20px;">
       <p-menubar [model]="items"></p-menubar>
-    </div>
+    </div> -->
     <p-table
       #dt
       id="dt"
@@ -124,13 +124,25 @@
       <label for="fechaInicial">Fecha Inicio</label>
     </div>
     <div class="ui-g-8">
-      <p-calendar [(ngModel)]="fechaInicial"  [locale]="es"></p-calendar>
+      <p-calendar
+        dataType="string"
+        [(ngModel)]="fechaInicial"
+        dateFormat="yy-mm-dd"
+        [locale]="es"
+        showButtonBar="true"
+      ></p-calendar>
     </div>
     <div class="ui-g-4">
       <label for="fechaFinal">Fecha Fin</label>
     </div>
     <div class="ui-g-8">
-      <p-calendar [(ngModel)]="fechaFinal" [locale]="es"></p-calendar>
+      <p-calendar
+        dataType="string"
+        [(ngModel)]="fechaFinal"
+        dateFormat="yy-mm-dd"
+        [locale]="es"
+        showButtonBar="true"
+      ></p-calendar>
     </div>
   </div>
   <p-footer>
@@ -139,7 +151,7 @@
         type="button"
         pButton
         icon="pi pi-check"
-        (click)="(!display)"
+        (click)="getAll()"
         label="Guardar"
       ></button>
     </div>

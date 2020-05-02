@@ -21,7 +21,7 @@ import { MenuItem } from "primeng/api";
 //Modelo
 import { Persona } from "src/app/models/Persona";
 import { Proyecto } from "src/app/models/Proyecto";
-import { Registro } from 'src/app/models/Registro';
+import { Registro } from "src/app/models/Registro";
 // Servicios
 import { PersonaService } from "src/app/services/persona.service";
 import { AuthService } from "src/app/services/auth.service";
@@ -130,6 +130,8 @@ export class EntradasComponent implements OnInit {
   }
 
   getAllRegistros() {
+    console.log(this.date);
+
     this.registroService.getAll().subscribe(
       (result: any) => {
         let registros: Registro[] = [];
@@ -187,7 +189,12 @@ export class EntradasComponent implements OnInit {
     );
   }
   validarRegistro(registro: Registro) {
-    throw new Error("Method not implemented.");
+    let index = this.registros.findIndex(e => e.id == registro.id);
+    if (index != -1) {
+      this.registros[index] = registro;
+    } else {
+      this.registros.push(registro);
+    }
   }
 
   get persona() {
@@ -225,7 +232,35 @@ export class EntradasComponent implements OnInit {
 
   delete(): void {
     console.log("Eliminando");
-    
+    if (this.selectedRegistro == null || this.selectedRegistro.id == null) {
+      this.messageService.add({
+        severity: "warn",
+        summary: "¡¡¡Advertencia!!!",
+        detail: "No ha Seleccionado ningun Registro"
+      });
+      return;
+    }
+    this.confirmationService.confirm({
+      message: "¿Está serguro que desea eliminar el registro?",
+      accept: () => {
+        this.registroService
+          .delete(this.selectedRegistro.id)
+          .subscribe((result: any) => {
+            this.messageService.add({
+              severity: "success",
+              summary: "Resultado",
+              detail: "Se elimino a el Registro No. " + result.id + " correctamente"
+            });
+            this.eliminarRegistro(result.id);
+          });
+      }
+    });
+  }
+  eliminarRegistro(id: number) {
+    let index = this.registros.findIndex(e => e.id = id);
+    if (index != -1){
+      this.registros.splice(index, 1)
+    }
   }
 
   ngOnInit(): void {

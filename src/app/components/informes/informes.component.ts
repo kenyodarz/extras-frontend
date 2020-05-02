@@ -33,16 +33,25 @@ export class InformesComponent implements OnInit {
   fechaFinal: Date;
 
   constructor(private registroService: RegistroService) {
-    this.display=false;
+    this.display = true;
   }
 
   getAll() {
+    this.display = false;
+    console.log("Fecha Inicial: " + this.fechaInicial);
+    console.log("Fecha Final: " + this.fechaFinal);
+
     this.registroService.getAll().subscribe(
       (result: any) => {
         let registros: Registro[] = [];
         for (let i = 0; i < result.length; i++) {
           let registro = result[i] as Registro;
-          registros.push(registro);
+          if (
+            registro.fecha >= this.fechaInicial &&
+            registro.fecha <= this.fechaFinal
+          ) {
+            registros.push(registro);
+          }
         }
         console.log(registros);
         this.registros = registros;
@@ -102,7 +111,7 @@ export class InformesComponent implements OnInit {
 
   ngOnInit(): void {
     this.total = 0;
-    this.getAll();
+    // this.getAll();
     this.es = {
       firstDayOfWeek: 1,
       dayNames: [
