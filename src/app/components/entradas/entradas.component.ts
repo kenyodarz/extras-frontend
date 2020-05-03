@@ -130,7 +130,7 @@ export class EntradasComponent implements OnInit {
   }
 
   getAllRegistros() {
-    console.log(this.date);
+    // console.log(this.date);
 
     this.registroService.getAll().subscribe(
       (result: any) => {

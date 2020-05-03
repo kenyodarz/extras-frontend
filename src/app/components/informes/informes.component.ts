@@ -136,7 +136,7 @@ export class InformesComponent implements OnInit {
         }
       }
     }
-    console.log("rowGroupMetadata " + JSON.stringify(this.rowGroupMetadata));
+    // console.log("rowGroupMetadata " + JSON.stringify(this.rowGroupMetadata));
   }
 
   ngOnInit(): void {
