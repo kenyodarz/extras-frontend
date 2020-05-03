@@ -3,7 +3,7 @@ import { Observable } from "rxjs";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 
-const API_URL: String = "http://186.114.95.46/extras-backend/api/proyecto/";
+const API_URL: String = "http://3.16.116.229/ebackend/api/proyecto/";
 @Injectable({
   providedIn: "root"
 })

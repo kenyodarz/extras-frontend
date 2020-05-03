@@ -42,7 +42,7 @@ export class RegistrosComponent implements OnInit {
           let registro = result[i] as Registro;
           registros.push(registro);
         }
-        console.log(registros);
+        // console.log(registros);
         this.registros = registros;
       },
       error => {

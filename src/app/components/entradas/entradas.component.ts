@@ -140,7 +140,7 @@ export class EntradasComponent implements OnInit {
           }
         }
         this.registros = registros;
-        console.log(this.registros);
+        // console.log(this.registros);
       },
       error => {
         console.log(error);

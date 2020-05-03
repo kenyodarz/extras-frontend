@@ -35,7 +35,7 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.form);
+    // console.log(this.form);
     this.authService.login(this.form).subscribe(
       data => {
         this.tokenStorage.saveToken(data.accessToken);
@@ -55,7 +55,7 @@ export class LoginComponent implements OnInit {
 
   reloadPage() {
     //window.location.reload();
-    window.location.replace("/extras");
+    window.location.replace("#/home");
   }
 
   

@@ -42,7 +42,7 @@ export class PersonasComponent implements OnInit {
           let persona = result[i] as Persona;
           personas.push(persona);
         }
-        console.log(personas);
+        // console.log(personas);
         this.personas = personas;
       },
       error => {
@@ -126,7 +126,7 @@ export class PersonasComponent implements OnInit {
   onSubmit() {
     this.authService.register(this.form).subscribe(
       data => {
-        console.log(data);
+        // console.log(data);
         this.isSuccessful = true;
         this.isSignUpFailed = false;
       },

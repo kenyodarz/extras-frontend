@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable } from "rxjs";
 
-const AUTH_API: string = "http://186.114.95.46/extras-backend/api/auth/";
+const AUTH_API: string = "http://3.16.116.229/ebackend/api/auth/";
 
 const httpOptions = {
   headers: new HttpHeaders({ "Content-Type": "application/json" })
