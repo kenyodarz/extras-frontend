@@ -53,7 +53,7 @@ export class InformesComponent implements OnInit {
             registros.push(registro);
           }
         }
-        // console.log(registros);
+        console.log(registros);
         this.registros = registros;
       },
       error => {
@@ -73,7 +73,7 @@ export class InformesComponent implements OnInit {
         let rowData = this.registros[i].persona["cedula"];
         let persona = rowData;
         if (i == 0) {
-          // console.log(this.registros[i].salario_sin_prestaciones);
+          console.log(this.registros[i].salario_sin_prestaciones);
 
           this.rowGroupMetadata[persona] = {
             index: 0,
@@ -136,7 +136,7 @@ export class InformesComponent implements OnInit {
         }
       }
     }
-    // console.log("rowGroupMetadata " + JSON.stringify(this.rowGroupMetadata));
+    console.log("rowGroupMetadata " + JSON.stringify(this.rowGroupMetadata));
   }
 
   ngOnInit(): void {

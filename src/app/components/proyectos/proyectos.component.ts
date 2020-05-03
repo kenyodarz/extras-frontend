@@ -45,7 +45,7 @@ export class ProyectosComponent implements OnInit {
           let proyecto = result[i] as Proyecto;
           proyectos.push(proyecto);
         }
-        // console.log(proyectos);
+        console.log(proyectos);
         this.proyectos = proyectos;
       },
       error => {
@@ -141,7 +141,7 @@ export class ProyectosComponent implements OnInit {
   onSubmit() {
     this.authService.register(this.form).subscribe(
       data => {
-        // console.log(data);
+        console.log(data);
         this.isSuccessful = true;
         this.isSignUpFailed = false;
       },
