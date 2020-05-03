@@ -33,16 +33,25 @@ export class InformesComponent implements OnInit {
   fechaFinal: Date;
 
   constructor(private registroService: RegistroService) {
-    this.display=false;
+    this.display = true;
   }
 
   getAll() {
+    this.display = false;
+    console.log("Fecha Inicial: " + this.fechaInicial);
+    console.log("Fecha Final: " + this.fechaFinal);
+
     this.registroService.getAll().subscribe(
       (result: any) => {
         let registros: Registro[] = [];
         for (let i = 0; i < result.length; i++) {
           let registro = result[i] as Registro;
-          registros.push(registro);
+          if (
+            registro.fecha >= this.fechaInicial &&
+            registro.fecha <= this.fechaFinal
+          ) {
+            registros.push(registro);
+          }
         }
         // console.log(registros);
         this.registros = registros;
@@ -69,6 +78,12 @@ export class InformesComponent implements OnInit {
           this.rowGroupMetadata[persona] = {
             index: 0,
             size: 1,
+            ho: this.registros[i].hora_ordinaria,
+            rn: this.registros[i].recargo_nocturno,
+            he: this.registros[i].hora_extra,
+            hen: this.registros[i].hora_extra_nocturna,
+            hef: this.registros[i].hora_extra_festiva,
+            hefn: this.registros[i].hora_extra_festiva_nocturna,
             salario_sin_prestaciones: this.registros[i]
               .salario_sin_prestaciones,
             salario_con_prestaciones: this.registros[i].salario_con_prestaciones
@@ -78,6 +93,24 @@ export class InformesComponent implements OnInit {
           let previousRowGroup = previousRowData;
           if (persona === previousRowGroup) {
             this.rowGroupMetadata[persona].size++;
+            this.rowGroupMetadata[persona].ho =
+              this.rowGroupMetadata[persona].ho +
+              this.registros[i].hora_ordinaria;
+            this.rowGroupMetadata[persona].rn =
+              this.rowGroupMetadata[persona].rn +
+              this.registros[i].recargo_nocturno;
+            this.rowGroupMetadata[persona].he =
+              this.rowGroupMetadata[persona].he +
+              this.registros[i].hora_extra;
+            this.rowGroupMetadata[persona].hen =
+              this.rowGroupMetadata[persona].hen +
+              this.registros[i].hora_extra_nocturna;
+            this.rowGroupMetadata[persona].hef =
+              this.rowGroupMetadata[persona].hef +
+              this.registros[i].hora_extra_festiva;
+            this.rowGroupMetadata[persona].hefn =
+              this.rowGroupMetadata[persona].hefn +
+              this.registros[i].hora_extra_festiva_nocturna;
             this.rowGroupMetadata[persona].salario_sin_prestaciones =
               this.rowGroupMetadata[persona].salario_sin_prestaciones +
               this.registros[i].salario_sin_prestaciones;
@@ -88,6 +121,12 @@ export class InformesComponent implements OnInit {
             this.rowGroupMetadata[persona] = {
               index: i,
               size: 1,
+              ho: this.registros[i].hora_ordinaria,
+              rn: this.registros[i].recargo_nocturno,
+              he: this.registros[i].hora_extra,
+              hen: this.registros[i].hora_extra_nocturna,
+              hef: this.registros[i].hora_extra_festiva,
+              hefn: this.registros[i].hora_extra_festiva_nocturna,
               salario_sin_prestaciones: this.registros[i]
                 .salario_sin_prestaciones,
               salario_con_prestaciones: this.registros[i]
@@ -102,7 +141,7 @@ export class InformesComponent implements OnInit {
 
   ngOnInit(): void {
     this.total = 0;
-    this.getAll();
+    // this.getAll();
     this.es = {
       firstDayOfWeek: 1,
       dayNames: [

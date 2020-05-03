@@ -9,7 +9,11 @@ import { Registro } from "../models/Registro";
   providedIn: "root"
 })
 export class RegistroService {
+<<<<<<< HEAD
   baseURL: string = "http://3.16.116.229/ebackend/api/registro";
+=======
+  baseURL: string = "http://52.206.198.108:8080/extras-backend/api/registro";
+>>>>>>> 844f9796e198e0ad0059af82dafed20c779ac2c5
   constructor(private http: HttpClient) {}
 
   getAll(): Observable<any> {
