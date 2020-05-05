@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { TokenStorageService } from "src/app/services/token-storage.service"
+import { TokenStorageService } from "src/app/services/token-storage.service";
 
 @Component({
   selector: "app-toolbar",
@@ -45,7 +45,7 @@ export class ToolbarComponent implements OnInit {
     window.location.reload();
     this.irAlInicio();
   }
-  irAlInicio(){
+  irAlInicio() {
     window.location.replace("#/home/");
   }
 }

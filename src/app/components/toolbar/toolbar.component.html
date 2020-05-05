@@ -108,6 +108,7 @@
             [routerLink]="['/personas']"
             routerLinkActive="router-link-active"
             *ngIf="showPersonasBoard"
+            (click)="visibleSidebar = false"
           >
             <mat-icon>people</mat-icon>
             Personas
@@ -117,6 +118,7 @@
             [routerLink]="['/proyectos']"
             routerLinkActive="router-link-active"
             *ngIf="showProyectosBoard"
+            (click)="visibleSidebar = false"
           >
             <mat-icon>play_for_work</mat-icon>
             Proyectos
@@ -135,6 +137,7 @@
             [routerLink]="['/entradas']"
             routerLinkActive="router-link-active"
             *ngIf="showProyectosBoard"
+            (click)="visibleSidebar = false"
           >
             <mat-icon>assignment</mat-icon>
             Entradas
@@ -149,7 +152,13 @@
             <mat-icon>account_box</mat-icon>
             {{ username }}
           </a> -->
-          <a mat-list-item (click)="logout()" href="/" *ngIf="isLoggedIn">
+          <a
+            mat-list-item
+            (click)="logout()"
+            (click)="visibleSidebar = false"
+            href="/"
+            *ngIf="isLoggedIn"
+          >
             <mat-icon>highlight_off</mat-icon>
             Cerrar Sesion
           </a>
@@ -158,6 +167,7 @@
             *ngIf="!isLoggedIn"
             routerLinkActive="router-link-active"
             mat-list-item
+            (click)="visibleSidebar = false"
           >
             <mat-icon>account_circle</mat-icon>
             Iniciar Sesion
@@ -166,6 +176,7 @@
             mat-list-item
             [routerLink]="['/about']"
             routerLinkActive="router-link-active"
+            (click)="visibleSidebar = false"
           >
             <mat-icon>group_work</mat-icon>
             Acerca de
