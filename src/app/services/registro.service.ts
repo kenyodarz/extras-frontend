@@ -9,8 +9,8 @@ import { Registro } from "../models/Registro";
   providedIn: "root"
 })
 export class RegistroService {
-
-  baseURL: string = "http://3.16.116.229/ebackend/api/registro";
+  baseURL: string = "http://localhost:8090/api/registro";
+  // baseURL: string = "http://3.16.116.229/ebackend/api/registro";
 
   constructor(private http: HttpClient) {}
 
@@ -22,6 +22,14 @@ export class RegistroService {
     let headers = new HttpHeaders();
     headers = headers.set("Content-Type", "application/json");
     return this.http.post(this.baseURL + "/save", JSON.stringify(registro), {
+      headers: headers
+    });
+  }
+
+  segundo(id: number, registro: Registro): Observable<any> {
+    let headers = new HttpHeaders();
+    headers = headers.set("Content-Type", "application/json");
+    return this.http.post(this.baseURL + "/segundo/" + id, JSON.stringify(registro), {
       headers: headers
     });
   }

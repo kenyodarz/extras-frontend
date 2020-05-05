@@ -69,6 +69,7 @@ export class EntradasComponent implements OnInit {
   display: boolean;
   es: any;
   date: Date;
+  defaultDate: Date;
   entradaHora: Date;
   salidaHora: Date;
   isfestivo: boolean;
@@ -165,28 +166,54 @@ export class EntradasComponent implements OnInit {
   }
 
   agregarEntrada() {
-    console.log(this.formEntrada.value + "Agregar Entrada");
-    console.log(JSON.stringify(this.formEntrada.value));
-    this.registroService.save(this.formEntrada.value).subscribe(
-      (result: any) => {
-        let registro = result as Registro;
-        //this.validarRegistro(registro);
-        this.getAllRegistros();
-        this.messageService.add({
-          severity: "success",
-          summary: "Resultado",
-          detail: "Se Agrego el Registro Correctamente"
-        });
-      },
-      error => {
-        console.log(error);
-        this.messageService.add({
-          severity: "warn",
-          summary: "¡¡¡Advertencia!!!",
-          detail: "No ha Seleccionado ningun Registro"
-        });
-      }
+    // console.log(this.formEntrada.value + "Agregar Entrada");
+    // console.log(JSON.stringify(this.formEntrada.value));l
+    this.formEntrada.patchValue({fecha: this.date})
+    this.formEntrada.patchValue({festivo: this.isfestivo})
+    let index = this.registros.findIndex(
+      e => e.persona["cedula"] == this.formEntrada.value.persona["cedula"]
     );
+    if (index != -1) {
+      this.registroService
+        .segundo(this.registros[index].id, this.formEntrada.value)
+        .subscribe(
+          (result: any) => {
+            let registro = result as Registro;
+            this.validarRegistro(registro);
+            this.getAllRegistros();
+            this.messageService.add({
+              severity: "success",
+              summary: "Resultado",
+              detail: "Se Agrego el Registro Correctamente"
+            });
+          },
+          error => {
+            console.log(error);
+          }
+        );
+    } else {
+      this.registroService.save(this.formEntrada.value).subscribe(
+        (result: any) => {
+          let registro = result as Registro;
+          this.validarRegistro(registro);
+          this.getAllRegistros();
+          this.messageService.add({
+            severity: "success",
+            summary: "Resultado",
+            detail: "Se Agrego el Registro Correctamente"
+          });
+        },
+        error => {
+          console.log(error);
+          this.messageService.add({
+            severity: "warn",
+            summary: "¡¡¡Advertencia!!!",
+            detail: "No ha Seleccionado ningun Registro"
+          });
+        }
+      );
+    }
+    this.formEntrada.reset();
   }
   validarRegistro(registro: Registro) {
     let index = this.registros.findIndex(e => e.id == registro.id);
@@ -227,6 +254,9 @@ export class EntradasComponent implements OnInit {
   }
 
   aceptar() {
+    console.log(this.date);
+    console.log(this.isfestivo);
+    this.getAllRegistros();
     this.display = false;
   }
 
@@ -249,7 +279,8 @@ export class EntradasComponent implements OnInit {
             this.messageService.add({
               severity: "success",
               summary: "Resultado",
-              detail: "Se elimino a el Registro No. " + result.id + " correctamente"
+              detail:
+                "Se elimino a el Registro No. " + result.id + " correctamente"
             });
             this.eliminarRegistro(result.id);
           });
@@ -257,20 +288,23 @@ export class EntradasComponent implements OnInit {
     });
   }
   eliminarRegistro(id: number) {
-    let index = this.registros.findIndex(e => e.id = id);
-    if (index != -1){
-      this.registros.splice(index, 1)
+    let index = this.registros.findIndex(e => (e.id = id));
+    if (index != -1) {
+      // this.registros.splice(index, 1);
+      this.getAllRegistros();
     }
   }
 
   ngOnInit(): void {
+    this.isfestivo = false;
+    
     this.formEntrada = this.formBuilder.group({
-      fecha: new FormControl(null, Validators.required),
+      fecha: new FormControl(),
       hora_entrada: new FormControl(null, Validators.required),
       hora_salida: new FormControl(null, Validators.required),
       persona: new FormControl(null, Validators.required),
       proyecto: new FormControl(null, Validators.required),
-      festivo: new FormControl(false, Validators.required)
+      festivo: new FormControl()
     });
     this.getAllPersona();
     this.getAllProyecto();

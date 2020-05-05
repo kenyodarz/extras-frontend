@@ -6,8 +6,12 @@ import { MenuItem } from "primeng/api";
 // Services
 import { RegistroService } from "src/app/services/registro.service";
 import { AuthService } from "src/app/services/auth.service";
+import { PersonaService } from 'src/app/services/persona.service';
+import { ProyectoService } from 'src/app/services/proyecto.service';
 // Models
 import { Registro } from "src/app/models/Registro";
+import { Persona } from "src/app/models/Persona";
+import { Proyecto } from "src/app/models/Proyecto";
 
 @Component({
   selector: "app-registros",
@@ -15,6 +19,8 @@ import { Registro } from "src/app/models/Registro";
   styleUrls: ["./registros.component.scss"]
 })
 export class RegistrosComponent implements OnInit {
+  personas: Persona[];
+  proyectos: Proyecto[];
   registros: Registro[];
   cols: any[];
   items: MenuItem[];
@@ -24,11 +30,31 @@ export class RegistrosComponent implements OnInit {
   isSuccessful = false;
   isSignUpFailed = false;
   errorMessage = "";
-  registro: Registro;
+  registro: Registro = {
+    id: null,
+    fecha: null,
+    hora_entrada: null,
+    hora_salida: null,
+    hora_ordinaria: null,
+    recargo_nocturno: null,
+    hora_extra: null,
+    hora_extra_nocturna: null,
+    hora_extra_festiva: null,
+    hora_extra_festiva_nocturna: null,
+    persona: null,
+    proyecto: null,
+    festivo: false,
+    salario_con_prestaciones: null,
+    salario_sin_prestaciones: null
+  };
+  selectedPersona: Persona;
+  selectedProyecto: Proyecto;
   selectedRegistro: Registro;
 
   constructor(
     private registroService: RegistroService,
+    private personaService: PersonaService,
+    private proyectoService: ProyectoService,
     private messageService: MessageService,
     private confirmationService: ConfirmationService,
     private authService: AuthService
@@ -51,6 +77,37 @@ export class RegistrosComponent implements OnInit {
     );
   }
 
+  getAllPersona() {
+    this.personaService.getAll().subscribe(
+      (result: any) => {
+        let personas: Persona[] = [];
+        for (let i = 0; i < result.length; i++) {
+          let persona = result[i] as Persona;
+          personas.push(persona);
+        }
+        this.personas = personas;
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+
+  getAllProyecto() {
+    this.proyectoService.getAll().subscribe(
+      (result: any) => {
+        let proyectos: Proyecto[] = [];
+        for (let i = 0; i < result.length; i++) {
+          let proyecto = result[i] as Proyecto;
+          proyectos.push(proyecto);
+        }
+        this.proyectos = proyectos;
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
   save() {
     this.registroService.save(this.registro).subscribe((result: any) => {
       let registro = result as Registro;
@@ -87,7 +144,7 @@ export class RegistrosComponent implements OnInit {
         return;
       }
     } else {
-      // this.registro = new Registro();
+      this.registro = new Registro();
     }
     this.displaySaveDialog = true;
   }
@@ -139,6 +196,8 @@ export class RegistrosComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAll();
+    this.getAllPersona();
+    this.getAllProyecto();
     this.items = [
       {
         label: "Nuevo",

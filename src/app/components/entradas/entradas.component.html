@@ -4,7 +4,7 @@
       <div class="row form-group p-2">
         <div class="col-12 mt-2">
           <div class="p-grid">
-            <div class="p-col-6">
+            <!-- <div class="p-col-6">
               <div class="box">
                 <div class="row">
                   <div class="col-12 mt-2 mb-2">
@@ -57,7 +57,7 @@
                   </div>
                 </div>
               </div>
-            </div>
+            </div> -->
             <div class="p-col-6">
               <div class="box">
                 <label for="persona">Trabajador</label>
@@ -137,9 +137,21 @@
                 <div class="row">
                   <div class="col-12 mt-2 mb-2">
                     <label for="horaEntrada">Hora de Entrada</label>
-                    <p-calendar
-                      dataType="string"
+                    <p-inputMask
+                      formControlName="hora_entrada"
+                      mask="99:99"
+                      placeholder="00:00"
                       [(ngModel)]="entradaHora"
+                      pKeyFilter="int"
+                      styleClass="form-control"
+                      required
+                      [ngStyleClass]="{
+                        'is-valid': hora_entrada.dirty && !hora_entrada.invalid,
+                        'is-invalid': hora_entrada.dirty && hora_entrada.invalid
+                      }"
+                    ></p-inputMask>
+                    <!-- <p-calendar
+                      dataType="string"
                       [timeOnly]="true"
                       formControlName="hora_entrada"
                       [readonlyInput]="false"
@@ -148,7 +160,7 @@
                         'is-valid': hora_entrada.dirty && !hora_entrada.invalid,
                         'is-invalid': hora_entrada.dirty && hora_entrada.invalid
                       }"
-                    ></p-calendar>
+                    ></p-calendar> -->
                     <div
                       *ngIf="hora_entrada.invalid && formEntrada.dirty"
                       class="ng-dirty ng-invalid"
@@ -168,7 +180,20 @@
                 <div class="row">
                   <div class="col-12 mt-2 mb-2">
                     <label for="horaSalida">Hora de Salida</label>
-                    <p-calendar
+                    <p-inputMask
+                      formControlName="hora_salida"
+                      mask="99:99"
+                      placeholder="00:00"
+                      [(ngModel)]="salidaHora"
+                      pKeyFilter="int"
+                      styleClass="form-control"
+                      required
+                      [ngStyleClass]="{
+                        'is-valid': hora_salida.dirty && !hora_salida.invalid,
+                        'is-invalid': hora_salida.dirty && hora_salida.invalid
+                      }"
+                    ></p-inputMask>
+                    <!-- <p-calendar
                       dataType="string"
                       [(ngModel)]="salidaHora"
                       [timeOnly]="true"
@@ -179,7 +204,7 @@
                         'is-valid': hora_salida.dirty && !hora_salida.invalid,
                         'is-invalid': hora_salida.dirty && hora_salida.invalid
                       }"
-                    ></p-calendar>
+                    ></p-calendar> -->
                     <div
                       *ngIf="hora_salida.invalid && formEntrada.dirty"
                       class="ng-dirty ng-invalid"
@@ -312,3 +337,34 @@
     </p-table>
   </p-panel>
 </div>
+<p-dialog header="Seleccione Rango de Fechas" [(visible)]="display">
+  <div class="ui-g ui-fluid">
+    <div class="ui-g-4">
+      <label for="Fecha">Fecha</label>
+    </div>
+    <div class="ui-g-8">
+      <p-calendar
+        dataType="string"
+        [(ngModel)]="date"
+        dateFormat="yy-mm-dd"
+        [locale]="es"
+        showButtonBar="true"
+      ></p-calendar>
+    </div>
+    <div class="ui-g-4">
+      <label for="festovo">Festivo</label>
+    </div>
+    <div class="ui-g-8">
+      <p-toggleButton
+        [(ngModel)]="isfestivo"
+        onLabel="Si"
+        offLabel="No"
+      ></p-toggleButton>
+    </div>
+  </div>
+  <p-footer>
+    <div class="ui-dialog-buttonpane ui-helper-clearfix">
+      <button type="button" (click)="aceptar()" pButton icon="pi pi-check" label="Guardar"></button>
+    </div>
+  </p-footer>
+</p-dialog>
