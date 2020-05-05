@@ -9,8 +9,8 @@ import { Registro } from "../models/Registro";
   providedIn: "root"
 })
 export class RegistroService {
-  baseURL: string = "http://localhost:8090/api/registro";
-  // baseURL: string = "http://3.16.116.229/ebackend/api/registro";
+  // baseURL: string = "http://localhost:8090/api/registro";
+  baseURL: string = "http://3.16.116.229/ebackend/api/registro";
 
   constructor(private http: HttpClient) {}
 

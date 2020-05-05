@@ -3,8 +3,8 @@ import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 
 
-const API_URL = "http://localhost:8090/api/test/";
-// const API_URL = "http://3.16.116.229/ebackend/api/test/";
+// const API_URL = "http://localhost:8090/api/test/";
+const API_URL = "http://3.16.116.229/ebackend/api/test/";
 
 
 @Injectable({

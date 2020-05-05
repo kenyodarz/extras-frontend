@@ -3,8 +3,8 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable } from "rxjs";
 
 
-const AUTH_API: string = "http://localhost:8090/api/auth/";
-// const AUTH_API: string = "http://3.16.116.229/ebackend/api/auth/";
+// const AUTH_API: string = "http://localhost:8090/api/auth/";
+const AUTH_API: string = "http://3.16.116.229/ebackend/api/auth/";
 
 const httpOptions = {
   headers: new HttpHeaders({ "Content-Type": "application/json" })

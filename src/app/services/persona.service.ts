@@ -4,8 +4,8 @@ import { Observable } from "rxjs";
 import { Persona } from "src/app/models/Persona";
 
 
-const API_URL: String = "http://localhost:8090/api/persona/";
-// const API_URL: String = "http://3.16.116.229/ebackend/api/persona/";
+// const API_URL: String = "http://localhost:8090/api/persona/";
+const API_URL: String = "http://3.16.116.229/ebackend/api/persona/";
 
 @Injectable({
   providedIn: 'root'
