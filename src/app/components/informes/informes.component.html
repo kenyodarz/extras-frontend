@@ -1,4 +1,5 @@
 <div class="ui-g">
+  <p-toast></p-toast>
   <p-panel
     header="Informes"
     [toggleable]="true"
@@ -25,6 +26,16 @@
             (click)="dt.exportCSV()"
             style="margin-right: 0.5em;"
           ></button> -->
+          <button
+            type="button"
+            pButton
+            icon="pi pi-plus-circle"
+            iconPos="left"
+            label="Nueva Consulta"
+            (click)="display=true"
+            class="ui-button-warning"
+            style="margin-right: 0.5em;"
+          ></button>
           <button
             type="button"
             pButton
@@ -89,11 +100,11 @@
             <span style="font-weight:bold">{{ rowData.persona.nombre }}</span>
           </td>
           <!-- <td>{{rowGroupMetadata[rowData.persona.cedula].ho}}</td> -->
-          <td>{{rowGroupMetadata[rowData.persona.cedula].rn}}</td>
-          <td>{{rowGroupMetadata[rowData.persona.cedula].he}}</td>
-          <td>{{rowGroupMetadata[rowData.persona.cedula].hen}}</td>
-          <td>{{rowGroupMetadata[rowData.persona.cedula].hef}}</td>
-          <td>{{rowGroupMetadata[rowData.persona.cedula].hefn}}</td>
+          <td>{{ rowGroupMetadata[rowData.persona.cedula].rn }}</td>
+          <td>{{ rowGroupMetadata[rowData.persona.cedula].he }}</td>
+          <td>{{ rowGroupMetadata[rowData.persona.cedula].hen }}</td>
+          <td>{{ rowGroupMetadata[rowData.persona.cedula].hef }}</td>
+          <td>{{ rowGroupMetadata[rowData.persona.cedula].hefn }}</td>
           <td>
             {{
               prestaciones
@@ -154,6 +165,25 @@
         showButtonBar="true"
       ></p-calendar>
     </div>
+    <div class="ui-g-4">Proyecto</div>
+    <div class="ui-g-8">
+      <p-dropdown
+        [options]="proyectos"
+        [(ngModel)]="selectedProyecto"
+        optionLabel="nombre"
+        placeholder="Seleccione Un Proyecto"
+      ></p-dropdown>
+    </div>
+    <div class="ui-g-4">Trabajador</div>
+    <div class="ui-g-8">
+      <p-dropdown
+      [options]="personas"
+      [(ngModel)]="selectedPersona"
+      optionLabel="nombre"
+      placeholder="Opcional: Seleccione un trabajador"
+      showClear=true
+      ></p-dropdown>
+    </div>
   </div>
   <p-footer>
     <div class="ui-dialog-buttonpane ui-helper-clearfix">
@@ -161,7 +191,7 @@
         type="button"
         pButton
         icon="pi pi-check"
-        (click)="getAll()"
+        (click)="aceptar()"
         label="Guardar"
       ></button>
     </div>

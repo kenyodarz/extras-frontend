@@ -28,6 +28,7 @@ import { CheckboxModule } from "primeng/checkbox";
 import { MultiSelectModule } from "primeng/multiselect";
 import { SidebarModule } from "primeng/sidebar";
 import { TreeTableModule } from "primeng/treetable";
+import { DropdownModule } from "primeng/dropdown";
 
 const myModule = [
   MessagesModule,
@@ -55,7 +56,8 @@ const myModule = [
   CheckboxModule,
   MultiSelectModule,
   SidebarModule,
-  TreeTableModule
+  TreeTableModule,
+  DropdownModule
 ];
 
 @NgModule({

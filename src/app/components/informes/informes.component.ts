@@ -1,13 +1,17 @@
 import { Component, OnInit, Input, Inject } from "@angular/core";
 // PrimeNG
-import { MessageService, ConfirmationService } from "primeng/api";
+import { MessageService, ConfirmationService, SelectItem } from "primeng/api";
 import { MenuItem } from "primeng/api";
 import { TreeNode } from "primeng/api";
 // Modelos
-import { Registro } from "src/app/models/Registro";
 import { Persona } from "src/app/models/Persona";
+import { Proyecto } from "src/app/models/Proyecto";
+import { Registro } from "src/app/models/Registro";
 // Servicios
-import { RegistroService } from "./../../services/registro.service";
+import { PersonaService } from "src/app/services/persona.service";
+import { AuthService } from "src/app/services/auth.service";
+import { ProyectoService } from "src/app/services/proyecto.service";
+import { RegistroService } from "src/app/services/registro.service";
 // Utilidades
 import * as jsPDF from "jspdf";
 import "jspdf-autotable";
@@ -18,8 +22,14 @@ import "jspdf-autotable";
   styleUrls: ["./informes.component.scss"]
 })
 export class InformesComponent implements OnInit {
+  personas: Persona[];
+  proyectos: Proyecto[];
   registros: Registro[];
   persona: Persona;
+  proyecto: Proyecto;
+  selectedPersona: Persona;
+  selectedProyecto: Proyecto;
+  selectedRegistro: Registro;
   files: TreeNode[];
   cols: any[];
   exportColumns: any[];
@@ -32,29 +42,79 @@ export class InformesComponent implements OnInit {
   fechaInicial: Date;
   fechaFinal: Date;
 
-  constructor(private registroService: RegistroService) {
+  constructor(
+    private personaService: PersonaService,
+    private proyectoService: ProyectoService,
+    private registroService: RegistroService,
+    private messageService: MessageService,
+    private confirmationService: ConfirmationService,
+    private authService: AuthService
+  ) {
     this.display = true;
   }
 
-  getAll() {
+  getAllRegistros() {
     this.display = false;
-    console.log("Fecha Inicial: " + this.fechaInicial);
-    console.log("Fecha Final: " + this.fechaFinal);
-
     this.registroService.getAll().subscribe(
       (result: any) => {
         let registros: Registro[] = [];
         for (let i = 0; i < result.length; i++) {
           let registro = result[i] as Registro;
-          if (
-            registro.fecha >= this.fechaInicial &&
-            registro.fecha <= this.fechaFinal
-          ) {
-            registros.push(registro);
+          if (this.selectedPersona != null && this.selectedPersona.cedula != null) {
+            if (
+              registro.fecha >= this.fechaInicial &&
+              registro.fecha <= this.fechaFinal &&
+              registro.proyecto["idProyecto"] ==
+                this.selectedProyecto.idProyecto &&
+              registro.persona["cedula"] == this.selectedPersona.cedula
+            ) {
+              registros.push(registro);
+            }
+          } else {
+            if (
+              registro.fecha >= this.fechaInicial &&
+              registro.fecha <= this.fechaFinal &&
+              registro.proyecto["idProyecto"] ==
+                this.selectedProyecto.idProyecto
+            ) {
+              registros.push(registro);
+            }
           }
+          
         }
         console.log(registros);
         this.registros = registros;
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+  getAllPersona() {
+    this.personaService.getAll().subscribe(
+      (result: any) => {
+        let personas: Persona[] = [];
+        for (let i = 0; i < result.length; i++) {
+          let persona = result[i] as Persona;
+          personas.push(persona);
+        }
+        this.personas = personas;
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+
+  getAllProyecto() {
+    this.proyectoService.getAll().subscribe(
+      (result: any) => {
+        let proyectos: Proyecto[] = [];
+        for (let i = 0; i < result.length; i++) {
+          let proyecto = result[i] as Proyecto;
+          proyectos.push(proyecto);
+        }
+        this.proyectos = proyectos;
       },
       error => {
         console.log(error);
@@ -100,8 +160,7 @@ export class InformesComponent implements OnInit {
               this.rowGroupMetadata[persona].rn +
               this.registros[i].recargo_nocturno;
             this.rowGroupMetadata[persona].he =
-              this.rowGroupMetadata[persona].he +
-              this.registros[i].hora_extra;
+              this.rowGroupMetadata[persona].he + this.registros[i].hora_extra;
             this.rowGroupMetadata[persona].hen =
               this.rowGroupMetadata[persona].hen +
               this.registros[i].hora_extra_nocturna;
@@ -139,9 +198,44 @@ export class InformesComponent implements OnInit {
     // console.log("rowGroupMetadata " + JSON.stringify(this.rowGroupMetadata));
   }
 
+  aceptar() {
+    if (this.fechaInicial == null) {
+      this.messageService.add({
+        severity: "warn",
+        summary: "¡¡¡Advertencia!!!",
+        detail: "Seleccione una fecha de inicio"
+      });
+    }
+    if (this.fechaFinal == null) {
+      this.messageService.add({
+        severity: "warn",
+        summary: "¡¡¡Advetencia!!!",
+        detail: "Seleccione una fecha final"
+      });
+    }
+    if (this.selectedProyecto == null) {
+      this.messageService.add({
+        severity: "error",
+        summary: "¡¡¡Error!!!",
+        detail: "Debe Seleccionar un proyecto"
+      });
+    }
+    if (
+      this.fechaFinal != null &&
+      this.fechaInicial != null &&
+      this.selectedProyecto != null
+    ) {
+      this.getAllRegistros();
+      this.display = false;
+    }
+  }
+
   ngOnInit(): void {
     this.total = 0;
-    // this.getAll();
+    // this.getAllRegistros();
+    this.getAllPersona();
+    this.getAllProyecto();
+
     this.es = {
       firstDayOfWeek: 1,
       dayNames: [
@@ -225,7 +319,7 @@ export class InformesComponent implements OnInit {
       {
         label: "Actualizar",
         icon: "pi pi-fw pi-refresh"
-        // command: () => this.getAll()
+        // command: () => this.getAllRegistros()
       }
     ];
     this.exportColumns = this.cols.map(col => ({
