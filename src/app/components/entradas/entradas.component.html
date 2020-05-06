@@ -347,8 +347,10 @@
         dataType="string"
         [(ngModel)]="date"
         dateFormat="yy-mm-dd"
+        readonlyInput="true"
         [locale]="es"
         showButtonBar="true"
+        required
       ></p-calendar>
     </div>
     <div class="ui-g-4">
@@ -364,7 +366,13 @@
   </div>
   <p-footer>
     <div class="ui-dialog-buttonpane ui-helper-clearfix">
-      <button type="button" (click)="aceptar()" pButton icon="pi pi-check" label="Guardar"></button>
+      <button
+        type="submit"
+        (click)="aceptar()"
+        pButton
+        icon="pi pi-check"
+        label="Guardar"
+      ></button>
     </div>
   </p-footer>
 </p-dialog>

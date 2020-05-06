@@ -54,8 +54,8 @@ export class LoginComponent implements OnInit {
   }
 
   reloadPage() {
+    window.location.replace("#/home");
     window.location.reload();
-    window.location.replace("#/home/");
 
   }
 

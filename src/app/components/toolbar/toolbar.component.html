@@ -11,6 +11,7 @@
             fxShow="true"
             fxHide.gt-sm
           ></button>
+          
           <span [routerLink]="['/']">{{ appName }}</span>
           <span class="example-spacer"></span>
           <div fxShow="true" fxHide.lt-md="true">
@@ -141,6 +142,16 @@
           >
             <mat-icon>assignment</mat-icon>
             Entradas
+          </a>
+          <a
+            mat-list-item
+            [routerLink]="['/informes']"
+            routerLinkActive="router-link-active"
+            *ngIf="showInformesBoard"
+            (click)="visibleSidebar = false"
+          >
+            <mat-icon>gavel</mat-icon>
+            Informes
           </a>
 
           <!-- <a

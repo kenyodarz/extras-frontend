@@ -70,7 +70,8 @@
             {{ col.header }}
           </th> -->
           <th></th>
-          <th>HO</th>
+          <th>Entrada</th>
+          <th>Salida</th>
           <th>RN</th>
           <th>HE</th>
           <th>HEN</th>
@@ -84,10 +85,10 @@
           class="ui-widget-header"
           *ngIf="rowGroupMetadata[rowData.persona.cedula].index === rowIndex"
         >
-          <td colspan="1">
+          <td colspan="3">
             <span style="font-weight:bold">{{ rowData.persona.nombre }}</span>
           </td>
-          <td>{{rowGroupMetadata[rowData.persona.cedula].ho}}</td>
+          <!-- <td>{{rowGroupMetadata[rowData.persona.cedula].ho}}</td> -->
           <td>{{rowGroupMetadata[rowData.persona.cedula].rn}}</td>
           <td>{{rowGroupMetadata[rowData.persona.cedula].he}}</td>
           <td>{{rowGroupMetadata[rowData.persona.cedula].hen}}</td>
@@ -105,7 +106,8 @@
         </tr>
         <tr>
           <td>{{ rowData.fecha }}</td>
-          <td>{{ rowData.hora_ordinaria }}</td>
+          <td>{{ rowData.hora_entrada }}</td>
+          <td>{{ rowData.hora_salida }}</td>
           <td>{{ rowData.recargo_nocturno }}</td>
           <td>{{ rowData.hora_extra }}</td>
           <td>{{ rowData.hora_extra_nocturna }}</td>
@@ -134,6 +136,7 @@
         dataType="string"
         [(ngModel)]="fechaInicial"
         dateFormat="yy-mm-dd"
+        readonlyInput="true"
         [locale]="es"
         showButtonBar="true"
       ></p-calendar>
@@ -147,6 +150,7 @@
         [(ngModel)]="fechaFinal"
         dateFormat="yy-mm-dd"
         [locale]="es"
+        readonlyInput="true"
         showButtonBar="true"
       ></p-calendar>
     </div>

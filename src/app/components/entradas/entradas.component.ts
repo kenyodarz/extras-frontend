@@ -168,8 +168,8 @@ export class EntradasComponent implements OnInit {
   agregarEntrada() {
     // console.log(this.formEntrada.value + "Agregar Entrada");
     // console.log(JSON.stringify(this.formEntrada.value));l
-    this.formEntrada.patchValue({fecha: this.date})
-    this.formEntrada.patchValue({festivo: this.isfestivo})
+    this.formEntrada.patchValue({ fecha: this.date });
+    this.formEntrada.patchValue({ festivo: this.isfestivo });
     let index = this.registros.findIndex(
       e => e.persona["cedula"] == this.formEntrada.value.persona["cedula"]
     );
@@ -254,10 +254,16 @@ export class EntradasComponent implements OnInit {
   }
 
   aceptar() {
-    console.log(this.date);
-    console.log(this.isfestivo);
-    this.getAllRegistros();
-    this.display = false;
+    if (this.date) {
+      this.getAllRegistros();
+      this.display = false;
+    } else {
+      this.messageService.add({
+        severity: "error",
+        summary: "¡¡¡Error!!!",
+        detail: "Seleccione una fecha"
+      });
+    }
   }
 
   delete(): void {
@@ -297,7 +303,7 @@ export class EntradasComponent implements OnInit {
 
   ngOnInit(): void {
     this.isfestivo = false;
-    
+
     this.formEntrada = this.formBuilder.group({
       fecha: new FormControl(),
       hora_entrada: new FormControl(null, Validators.required),
@@ -386,6 +392,11 @@ export class EntradasComponent implements OnInit {
         label: "Actualizar",
         icon: "pi pi-fw pi-refresh",
         command: () => this.getAllRegistros()
+      },
+      {
+        label: "Nueva Fecha",
+        icon: "pi pi-fw pi-plus",
+        command: () => (this.display = true)
       }
     ];
   }
