@@ -6,8 +6,8 @@ import { MenuItem } from "primeng/api";
 // Services
 import { RegistroService } from "src/app/services/registro.service";
 import { AuthService } from "src/app/services/auth.service";
-import { PersonaService } from 'src/app/services/persona.service';
-import { ProyectoService } from 'src/app/services/proyecto.service';
+import { PersonaService } from "src/app/services/persona.service";
+import { ProyectoService } from "src/app/services/proyecto.service";
 // Models
 import { Registro } from "src/app/models/Registro";
 import { Persona } from "src/app/models/Persona";
@@ -51,6 +51,16 @@ export class RegistrosComponent implements OnInit {
   selectedProyecto: Proyecto;
   selectedRegistro: Registro;
 
+  /**
+   * Creates an instance of RegistrosComponent.
+   * @param {RegistroService} registroService
+   * @param {PersonaService} personaService
+   * @param {ProyectoService} proyectoService
+   * @param {MessageService} messageService
+   * @param {ConfirmationService} confirmationService
+   * @param {AuthService} authService
+   * @memberof RegistrosComponent
+   */
   constructor(
     private registroService: RegistroService,
     private personaService: PersonaService,
@@ -60,6 +70,12 @@ export class RegistrosComponent implements OnInit {
     private authService: AuthService
   ) {}
 
+  /**
+   * Metodo que Invoca el Servicio para obtener 
+   * todos los registros de la API_REST
+   * 
+   * @memberof RegistrosComponent
+   */
   getAll() {
     this.registroService.getAll().subscribe(
       (result: any) => {

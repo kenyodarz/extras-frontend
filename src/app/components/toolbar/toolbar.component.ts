@@ -21,8 +21,14 @@ export class ToolbarComponent implements OnInit {
   username: string;
   showSupervisorBoard = false;
 
+  /**
+   * Creates an instance of ToolbarComponent.
+   * @param {TokenStorageService} tokenStorageService
+   * @memberof ToolbarComponent
+   */
   constructor(private tokenStorageService: TokenStorageService) {}
 
+  // Metodo se ejecuta cuando inicia el componente 
   ngOnInit() {
     this.isLoggedIn = !!this.tokenStorageService.getToken();
     if (this.isLoggedIn) {

@@ -1,10 +1,14 @@
+// Angular
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
+// RxJS
 import { Observable } from "rxjs";
+// Modelo
 import { Persona } from "src/app/models/Persona";
 
-
-// const API_URL: String = "http://localhost:8090/api/persona/";
+/**
+ * Direccion base de la API_REST
+ */
 const API_URL: String = "http://3.16.116.229/ebackend/api/persona/";
 
 @Injectable({
@@ -12,13 +16,24 @@ const API_URL: String = "http://3.16.116.229/ebackend/api/persona/";
 })
 export class PersonaService {
   
-
+/**
+ * Constructor del Servicio
+ * @param http Importacion del Servicio HTTPClient
+ */
   constructor(private http: HttpClient) { }
 
+  /**
+   * Metodo que nos permite listar todos los elementos de la API_REST
+   */
   getAll(): Observable<any>{
     return this.http.get(API_URL + "all");
   }
 
+  /**
+   * Metodo que nos permite guardar o editar datos de la API_REST
+   * @param persona Objeto de tipo Persona enviado a la API_REST para su creacion
+   * o edicion atravez del metodo post.
+   */
   save (persona: Persona): Observable<any>{
     let headers = new HttpHeaders();
     headers = headers.set("Content-Type", "application/json")
@@ -26,7 +41,11 @@ export class PersonaService {
       headers: headers
     });
   }
-
+  
+  /**
+   * Metodo que elimina un valor de la API_REST
+   * @param id Parametro obtenido y enviado a la API_REST
+   */
   delete(id: string): Observable<any>{
     return this.http.get(API_URL + "delete/" +id);
   }

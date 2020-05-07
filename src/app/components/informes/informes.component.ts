@@ -1,6 +1,6 @@
-import { Component, OnInit, Input, Inject } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 // PrimeNG
-import { MessageService, ConfirmationService, SelectItem } from "primeng/api";
+import { MessageService } from "primeng/api";
 import { MenuItem } from "primeng/api";
 import { TreeNode } from "primeng/api";
 // Modelos
@@ -9,7 +9,6 @@ import { Proyecto } from "src/app/models/Proyecto";
 import { Registro } from "src/app/models/Registro";
 // Servicios
 import { PersonaService } from "src/app/services/persona.service";
-import { AuthService } from "src/app/services/auth.service";
 import { ProyectoService } from "src/app/services/proyecto.service";
 import { RegistroService } from "src/app/services/registro.service";
 // Utilidades
@@ -22,11 +21,10 @@ import "jspdf-autotable";
   styleUrls: ["./informes.component.scss"]
 })
 export class InformesComponent implements OnInit {
+  // Declaracion de Variables
   personas: Persona[];
   proyectos: Proyecto[];
   registros: Registro[];
-  persona: Persona;
-  proyecto: Proyecto;
   selectedPersona: Persona;
   selectedProyecto: Proyecto;
   selectedRegistro: Registro;
@@ -42,25 +40,37 @@ export class InformesComponent implements OnInit {
   fechaInicial: Date;
   fechaFinal: Date;
 
+  /**
+   * Constructor de la App
+   * @param personaService Servicio de que nos permite trabajar con objetos tipo Persona
+   * @param proyectoService Servicio de que nos permite trabajar con objetos tipo Proyecto
+   * @param registroService Servicio de que nos permite trabajar con objetos tipo Registro
+   * @param messageService Servicio de PrimeNG para trabajar los mensajes tipo 'Toast'
+   */
   constructor(
     private personaService: PersonaService,
     private proyectoService: ProyectoService,
     private registroService: RegistroService,
-    private messageService: MessageService,
-    private confirmationService: ConfirmationService,
-    private authService: AuthService
+    private messageService: MessageService
   ) {
     this.display = true;
   }
 
+  /**
+   * Metodo para Obtener todos los Registros
+   */
   getAllRegistros() {
-    this.display = false;
+    this.display = false; // Desactivamos el Modal
+    /** Obtenermos los registros desde el servicio */
     this.registroService.getAll().subscribe(
       (result: any) => {
         let registros: Registro[] = [];
         for (let i = 0; i < result.length; i++) {
           let registro = result[i] as Registro;
-          if (this.selectedPersona != null && this.selectedPersona.cedula != null) {
+          if (
+            this.selectedPersona != null &&
+            this.selectedPersona.cedula != null
+          ) {
             if (
               registro.fecha >= this.fechaInicial &&
               registro.fecha <= this.fechaFinal &&
@@ -80,7 +90,6 @@ export class InformesComponent implements OnInit {
               registros.push(registro);
             }
           }
-          
         }
         console.log(registros);
         this.registros = registros;
@@ -133,8 +142,6 @@ export class InformesComponent implements OnInit {
         let rowData = this.registros[i].persona["cedula"];
         let persona = rowData;
         if (i == 0) {
-          console.log(this.registros[i].salario_sin_prestaciones);
-
           this.rowGroupMetadata[persona] = {
             index: 0,
             size: 1,
@@ -195,7 +202,6 @@ export class InformesComponent implements OnInit {
         }
       }
     }
-    // console.log("rowGroupMetadata " + JSON.stringify(this.rowGroupMetadata));
   }
 
   aceptar() {
@@ -232,10 +238,8 @@ export class InformesComponent implements OnInit {
 
   ngOnInit(): void {
     this.total = 0;
-    // this.getAllRegistros();
     this.getAllPersona();
     this.getAllProyecto();
-
     this.es = {
       firstDayOfWeek: 1,
       dayNames: [
@@ -286,10 +290,6 @@ export class InformesComponent implements OnInit {
         subfield: "nombre",
         header: "Persona"
       },
-      // { field: "id", header: "ID" },
-      // { field: "fecha", header: "Fecha" },
-      // { field: "hora_entrada", header: "Entrada" },
-      // { field: "hora_salida", header: "Salida" },
       { field: "hora_ordinaria", header: "HO" },
       { field: "recargo_nocturno", header: "RN" },
       { field: "hora_extra", header: "HE" },
@@ -298,47 +298,12 @@ export class InformesComponent implements OnInit {
       { field: "hora_extra_festiva_nocturna", header: "HEFN" },
       { field: "salario_sin_prestaciones", header: "Salario" },
       { field: "salario_sin_prestaciones", header: "Salario" }
-      // { field: "proyecto", subfield: "nombre", header: "Proyecto" }
-    ];
-    this.items = [
-      {
-        label: "Nuevo",
-        icon: "pi pi-fw pi-plus"
-        // command: () => this.showSaveDialog(false)
-      },
-      {
-        label: "Editar",
-        icon: "pi pi-fw pi-pencil"
-        // command: () => this.showSaveDialog(true)
-      },
-      {
-        label: "Eliminar",
-        icon: "pi pi-fw pi-trash"
-        // command: () => this.delete()
-      },
-      {
-        label: "Actualizar",
-        icon: "pi pi-fw pi-refresh"
-        // command: () => this.getAllRegistros()
-      }
     ];
     this.exportColumns = this.cols.map(col => ({
       title: col.header,
       dataKey: col.field
     }));
   }
-
-  // exportPdf() {
-  //   import("jspdf").then(jsPDF => {
-  //     import("jspdf-autotable").then(x => {
-  //       const doc = new jsPDF.default(0, 0);
-  //       // doc.autoTable({html: "#dt"})
-  //       doc.autoTable(this.exportColumns, this.registros);
-  //       doc.save("InformesPDF.pdf");
-  //     });
-  //   });
-  // }
-
   exportExcel() {
     import("xlsx").then(xlsx => {
       const worksheet = xlsx.utils.table_to_sheet(
@@ -352,7 +317,6 @@ export class InformesComponent implements OnInit {
       this.saveAsExcelFile(excelBuffer, "InformesExcel");
     });
   }
-
   saveAsExcelFile(buffer: any, fileName: string): void {
     import("file-saver").then(FileSaver => {
       let EXCEL_TYPE =

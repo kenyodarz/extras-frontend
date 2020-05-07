@@ -2,6 +2,25 @@ import { Persona } from "./Persona";
 import { Proyecto } from "./Proyecto";
 
 export class Registro {
+  /**
+   *Creates an instance of Registro.
+   * @param {number} [id=null]
+   * @param {Date} [fecha=null]
+   * @param {Date} [hora_entrada=null]
+   * @param {Date} [hora_salida=null]
+   * @param {number} [hora_ordinaria=null]
+   * @param {number} [recargo_nocturno=null]
+   * @param {number} [hora_extra=null]
+   * @param {number} [hora_extra_nocturna=null]
+   * @param {number} [hora_extra_festiva=null]
+   * @param {number} [hora_extra_festiva_nocturna=null]
+   * @param {Array<Persona>} [persona=null]
+   * @param {Array<Proyecto>} [proyecto=null]
+   * @param {boolean} [festivo=false]
+   * @param {number} [salario_con_prestaciones=null]
+   * @param {number} [salario_sin_prestaciones=null]
+   * @memberof Registro
+   */
   constructor(
     public id: number=null,
     public fecha: Date = null,
