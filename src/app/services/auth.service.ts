@@ -4,7 +4,7 @@ import { Observable } from "rxjs";
 
 
 // Contante que lleva la URL de la API_REST
-const AUTH_API: string = "http://3.16.116.229/ebackend/api/auth/";
+const AUTH_API: string = "http://app.cdmservicios.com/ebackend/api/auth/";
 // Contante que nos permite enviar los datos como JSON usando HttpHeaders
 const httpOptions = {
   headers: new HttpHeaders({ "Content-Type": "application/json" })

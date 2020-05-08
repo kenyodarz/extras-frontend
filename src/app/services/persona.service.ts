@@ -9,7 +9,7 @@ import { Persona } from "src/app/models/Persona";
 /**
  * Direccion base de la API_REST
  */
-const API_URL: String = "http://3.16.116.229/ebackend/api/persona/";
+const API_URL: String = "http://app.cdmservicios.com/ebackend/api/persona/";
 
 @Injectable({
   providedIn: 'root'

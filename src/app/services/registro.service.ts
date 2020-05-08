@@ -11,7 +11,7 @@ import { Registro } from "../models/Registro";
 })
 export class RegistroService {
   // URL de donde obtenemos datos de la API_REST
-  baseURL: string = "http://3.16.116.229/ebackend/api/registro";
+  baseURL: string = "http://app.cdmservicios.com/ebackend/api/registro";
 
   /**
    * Constructor del Servicio

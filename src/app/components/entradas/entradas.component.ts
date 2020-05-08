@@ -81,6 +81,7 @@ export class EntradasComponent implements OnInit {
   timeValue: string;
   cols: any[];
   items: MenuItem[];
+  activity: string;
 
   constructor(
     private personaService: PersonaService,
@@ -170,6 +171,8 @@ export class EntradasComponent implements OnInit {
     // console.log(JSON.stringify(this.formEntrada.value));l
     this.formEntrada.patchValue({ fecha: this.date });
     this.formEntrada.patchValue({ festivo: this.isfestivo });
+    this.formEntrada.patchValue({ proyecto: this.selectedProyecto });
+    this.formEntrada.patchValue({ actividad: this.activity });
     let index = this.registros.findIndex(
       e => e.persona["cedula"] == this.formEntrada.value.persona["cedula"]
     );
@@ -247,6 +250,9 @@ export class EntradasComponent implements OnInit {
   get festivo() {
     return this.formEntrada.get("festivo");
   }
+  get actividad(){
+    return this.formEntrada.get("actividad")
+  }
 
   onFechaChange() {
     console.log("Fecha Seleccionada: " + this.date);
@@ -254,15 +260,45 @@ export class EntradasComponent implements OnInit {
   }
 
   aceptar() {
-    if (this.date) {
-      this.getAllRegistros();
-      this.display = false;
-    } else {
+    console.log(this.date);
+    console.log(JSON.stringify(this.selectedProyecto));
+    console.log(this.actividad);
+    let fecha = true;
+    let proyecto = true;
+    let actividad = true;
+    if (this.date == null) {
+      fecha= false
       this.messageService.add({
         severity: "error",
         summary: "¡¡¡Error!!!",
         detail: "Seleccione una fecha"
       });
+    }
+    if (this.selectedProyecto == null) {
+      proyecto = false
+      this.messageService.add({
+        severity: "error",
+        summary: "¡¡¡Error!!!",
+        detail: "Debe Seleccionar un proyecto"
+      });
+    }
+    if (this.activity == null || this.activity == "") {
+      actividad = false;
+      this.messageService.add({
+        severity: "warn",
+        summary: "¡¡¡Advertencia!!!",
+        detail: "Debe ingresar una actividad"
+      });
+    }
+    if (
+      fecha &&
+      proyecto &&
+      actividad
+    ) {
+      this.getAllRegistros();
+      this.display = false;
+    } else {
+      console.log("Negativo al Civil");
     }
   }
 
@@ -309,8 +345,9 @@ export class EntradasComponent implements OnInit {
       hora_entrada: new FormControl(null, Validators.required),
       hora_salida: new FormControl(null, Validators.required),
       persona: new FormControl(null, Validators.required),
-      proyecto: new FormControl(null, Validators.required),
-      festivo: new FormControl()
+      proyecto: new FormControl(),
+      festivo: new FormControl(),
+      actividad: new FormControl()
     });
     this.getAllPersona();
     this.getAllProyecto();

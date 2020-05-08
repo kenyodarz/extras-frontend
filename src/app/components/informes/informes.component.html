@@ -11,10 +11,12 @@
     <p-table
       #dt
       id="dt"
-      [value]="registros"
       sortField="persona.cedula"
       sortMode="single"
       (onSort)="onSort()"
+      [responsive]="true"
+      [value]="registros"
+      dataKey="persona.cedula"
       ><ng-template pTemplate="caption">
         <div class="ui-helper-clearfix" style="text-align: left">
           <!-- <button
@@ -32,7 +34,7 @@
             icon="pi pi-plus-circle"
             iconPos="left"
             label="Nueva Consulta"
-            (click)="display=true"
+            (click)="display = true"
             class="ui-button-warning"
             style="margin-right: 0.5em;"
           ></button>
@@ -88,33 +90,68 @@
           <th>HEN</th>
           <th>HEF</th>
           <th>HEFN</th>
+          <th>Actividad</th>
           <th>Total</th>
         </tr>
       </ng-template>
-      <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+      <!-- <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex"> -->
+      <ng-template
+        pTemplate="body"
+        let-rowData
+        let-rowIndex="rowIndex"
+        let-expanded="expanded"
+        let-columns="columns"
+      >
         <tr
           class="ui-widget-header"
           *ngIf="rowGroupMetadata[rowData.persona.cedula].index === rowIndex"
         >
           <td colspan="3">
-            <span style="font-weight:bold">{{ rowData.persona.nombre }}</span>
+            <a href="#" [pRowToggler]="rowData">
+              <i
+                [ngClass]="
+                  expanded
+                    ? 'pi pi-fw pi-chevron-circle-down'
+                    : 'pi pi-fw pi-chevron-circle-right'
+                "
+                style="vertical-align: middle;padding-bottom: .1em;"
+              ></i>
+              <span style="font-weight:bold"
+                ><b>{{ rowData.persona.nombre }}</b></span
+              >
+            </a>
           </td>
           <!-- <td>{{rowGroupMetadata[rowData.persona.cedula].ho}}</td> -->
-          <td>{{ rowGroupMetadata[rowData.persona.cedula].rn }}</td>
-          <td>{{ rowGroupMetadata[rowData.persona.cedula].he }}</td>
-          <td>{{ rowGroupMetadata[rowData.persona.cedula].hen }}</td>
-          <td>{{ rowGroupMetadata[rowData.persona.cedula].hef }}</td>
-          <td>{{ rowGroupMetadata[rowData.persona.cedula].hefn }}</td>
           <td>
-            {{
-              prestaciones
-                ? (rowGroupMetadata[rowData.persona.cedula]
-                    .salario_con_prestaciones | currency)
-                : (rowGroupMetadata[rowData.persona.cedula]
-                    .salario_sin_prestaciones | currency)
-            }}
+            <b>{{ rowGroupMetadata[rowData.persona.cedula].rn }}</b>
+          </td>
+          <td>
+            <b>{{ rowGroupMetadata[rowData.persona.cedula].he }}</b>
+          </td>
+          <td>
+            <b>{{ rowGroupMetadata[rowData.persona.cedula].hen }}</b>
+          </td>
+          <td>
+            <b>{{ rowGroupMetadata[rowData.persona.cedula].hef }}</b>
+          </td>
+          <td>
+            <b>{{ rowGroupMetadata[rowData.persona.cedula].hefn }}</b>
+          </td>
+          <td></td>
+          <td>
+            <b>
+              {{
+                prestaciones
+                  ? (rowGroupMetadata[rowData.persona.cedula]
+                      .salario_con_prestaciones | currency)
+                  : (rowGroupMetadata[rowData.persona.cedula]
+                      .salario_sin_prestaciones | currency)
+              }}
+            </b>
           </td>
         </tr>
+        </ng-template>
+        <ng-template pTemplate="rowexpansion" let-rowData let-rowIndex="rowIndex">
         <tr>
           <td>{{ rowData.fecha }}</td>
           <td>{{ rowData.hora_entrada }}</td>
@@ -124,6 +161,7 @@
           <td>{{ rowData.hora_extra_nocturna }}</td>
           <td>{{ rowData.hora_extra_festiva }}</td>
           <td>{{ rowData.hora_extra_festiva_nocturna }}</td>
+          <td>{{ rowData.actividad }}</td>
           <td>
             {{
               prestaciones
@@ -177,11 +215,11 @@
     <div class="ui-g-4">Trabajador</div>
     <div class="ui-g-8">
       <p-dropdown
-      [options]="personas"
-      [(ngModel)]="selectedPersona"
-      optionLabel="nombre"
-      placeholder="Opcional: Seleccione un trabajador"
-      showClear=true
+        [options]="personas"
+        [(ngModel)]="selectedPersona"
+        optionLabel="nombre"
+        placeholder="Opcional: Seleccione un trabajador"
+        showClear="true"
       ></p-dropdown>
     </div>
   </div>

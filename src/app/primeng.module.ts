@@ -29,6 +29,7 @@ import { MultiSelectModule } from "primeng/multiselect";
 import { SidebarModule } from "primeng/sidebar";
 import { TreeTableModule } from "primeng/treetable";
 import { DropdownModule } from "primeng/dropdown";
+import { InputTextareaModule } from "primeng/inputtextarea";
 
 const myModule = [
   MessagesModule,
@@ -57,7 +58,8 @@ const myModule = [
   MultiSelectModule,
   SidebarModule,
   TreeTableModule,
-  DropdownModule
+  DropdownModule,
+  InputTextareaModule
 ];
 
 @NgModule({

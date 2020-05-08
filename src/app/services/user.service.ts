@@ -3,7 +3,7 @@ import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 
 
-const API_URL = "http://3.16.116.229/ebackend/api/test/";
+const API_URL = "http://app.cdmservicios.com/ebackend/api/test/";
 
 
 /**

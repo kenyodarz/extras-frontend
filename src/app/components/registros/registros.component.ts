@@ -45,7 +45,8 @@ export class RegistrosComponent implements OnInit {
     proyecto: null,
     festivo: false,
     salario_con_prestaciones: null,
-    salario_sin_prestaciones: null
+    salario_sin_prestaciones: null,
+    actividad: null
   };
   selectedPersona: Persona;
   selectedProyecto: Proyecto;
@@ -71,9 +72,9 @@ export class RegistrosComponent implements OnInit {
   ) {}
 
   /**
-   * Metodo que Invoca el Servicio para obtener 
+   * Metodo que Invoca el Servicio para obtener
    * todos los registros de la API_REST
-   * 
+   *
    * @memberof RegistrosComponent
    */
   getAll() {
@@ -93,6 +94,12 @@ export class RegistrosComponent implements OnInit {
     );
   }
 
+  /**
+   *  Metodo que Invoca el Servicio para obtener
+   * todas las personas de la API_REST
+   *
+   * @memberof RegistrosComponent
+   */
   getAllPersona() {
     this.personaService.getAll().subscribe(
       (result: any) => {
@@ -109,6 +116,11 @@ export class RegistrosComponent implements OnInit {
     );
   }
 
+  /**
+   * Metodo que Invoca el Servicio para obtener
+   * todos los proyectos de la API_REST
+   * @memberof RegistrosComponent
+   */
   getAllProyecto() {
     this.proyectoService.getAll().subscribe(
       (result: any) => {

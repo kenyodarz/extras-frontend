@@ -36,6 +36,7 @@ export class Registro {
     public proyecto: Array<Proyecto> = null,
     public festivo: boolean = false,
     public salario_con_prestaciones: number = null,
-    public salario_sin_prestaciones: number= null
+    public salario_sin_prestaciones: number= null,
+    public actividad: string = null
   ) {}
 }

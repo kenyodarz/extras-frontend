@@ -58,7 +58,7 @@
                 </div>
               </div>
             </div> -->
-            <div class="p-col-6">
+            <div class="p-col-12">
               <div class="box">
                 <label for="persona">Trabajador</label>
                 <div class="row">
@@ -95,7 +95,7 @@
                 </div>
               </div>
             </div>
-            <div class="p-col-6">
+            <!-- <div class="p-col-6">
               <div class="box">
                 <label for="proyecto">Proyecto</label>
                 <div class="row">
@@ -131,7 +131,7 @@
                   </div>
                 </div>
               </div>
-            </div>
+            </div> -->
             <div class="p-col-6">
               <div class="box">
                 <div class="row">
@@ -342,7 +342,7 @@
     <div class="ui-g-4">
       <label for="Fecha">Fecha</label>
     </div>
-    <div class="ui-g-8">
+    <div class="ui-g-8 ui-fluid">
       <p-calendar
         dataType="string"
         [(ngModel)]="date"
@@ -356,13 +356,30 @@
     <div class="ui-g-4">
       <label for="festovo">Festivo</label>
     </div>
-    <div class="ui-g-8">
+    <div class="ui-g-8 ui-fluid">
       <p-toggleButton
         [(ngModel)]="isfestivo"
         onLabel="Si"
         offLabel="No"
       ></p-toggleButton>
     </div>
+  </div>
+  <div class="ui-g-4">
+    <label for="proyecto">Proyecto</label>
+  </div>
+  <div class="ui-g-8 ui-fluid">
+    <p-dropdown
+      [options]="proyectos"
+      [(ngModel)]="selectedProyecto"
+      optionLabel="nombre"
+      placeholder="Seleccione Un Proyecto"
+    ></p-dropdown>
+  </div>
+  <div class="ui-g-4">
+    <label for="actividad">Actividad</label>
+  </div>
+  <div class="ui-g-8 ui-fluid">
+    <input id="input" type="text" pInputText [(ngModel)]="activity">
   </div>
   <p-footer>
     <div class="ui-dialog-buttonpane ui-helper-clearfix">
