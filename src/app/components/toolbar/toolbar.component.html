@@ -1,4 +1,12 @@
 <div class="row no-gutters">
+  <p-toast></p-toast>
+  <p-confirmDialog
+    header="Confirmación"
+    acceptLabel="Si"
+    rejectLabel="No"
+    icon="pi pi-exclamation-triangle"
+  >
+  </p-confirmDialog>
   <div class="col-12 mt-2 mb-2">
     <div>
       <mat-toolbar color="primary">
@@ -153,7 +161,6 @@
             <mat-icon>gavel</mat-icon>
             Informes
           </a>
-
           <!-- <a
             mat-list-item
             *ngIf="isLoggedIn"
@@ -192,7 +199,6 @@
             <mat-icon>group_work</mat-icon>
             Acerca de
           </a>
-
           <a (click)="visibleSidebar = false" mat-list-item>
             <mat-icon>close</mat-icon> Close
           </a>

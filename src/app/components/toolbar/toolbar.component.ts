@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { TokenStorageService } from "src/app/services/token-storage.service";
+import { ConfirmationService } from "primeng/api";
 
 @Component({
   selector: "app-toolbar",
@@ -26,9 +27,12 @@ export class ToolbarComponent implements OnInit {
    * @param {TokenStorageService} tokenStorageService
    * @memberof ToolbarComponent
    */
-  constructor(private tokenStorageService: TokenStorageService) {}
+  constructor(
+    private tokenStorageService: TokenStorageService,
+    private confirmationService: ConfirmationService
+  ) {}
 
-  // Metodo se ejecuta cuando inicia el componente 
+  // Metodo se ejecuta cuando inicia el componente
   ngOnInit() {
     this.isLoggedIn = !!this.tokenStorageService.getToken();
     if (this.isLoggedIn) {
@@ -47,9 +51,18 @@ export class ToolbarComponent implements OnInit {
     }
   }
   logout() {
-    this.tokenStorageService.singOut();
-    this.irAlInicio();
-    window.location.reload();
+    this.confirmationService.confirm({
+      message: "¿Esta Seguro que desea cerrar sesion?",
+      header :"Cerrar Sesion",
+      accept: () => {
+        this.tokenStorageService.singOut();
+        this.irAlInicio();
+        window.location.reload();
+      },
+      reject: () => {
+        this.irAlInicio();
+      }
+    });
   }
   irAlInicio() {
     window.location.replace("#/home");
