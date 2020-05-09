@@ -74,8 +74,8 @@ export class InformesComponent implements OnInit {
             if (
               registro.fecha >= this.fechaInicial &&
               registro.fecha <= this.fechaFinal &&
-              registro.proyecto["idProyecto"] ==
-                this.selectedProyecto.idProyecto &&
+              // registro.proyecto["idProyecto"] ==
+              //   this.selectedProyecto.idProyecto &&
               registro.persona["cedula"] == this.selectedPersona.cedula
             ) {
               registros.push(registro);
@@ -83,9 +83,9 @@ export class InformesComponent implements OnInit {
           } else {
             if (
               registro.fecha >= this.fechaInicial &&
-              registro.fecha <= this.fechaFinal &&
-              registro.proyecto["idProyecto"] ==
-                this.selectedProyecto.idProyecto
+              registro.fecha <= this.fechaFinal 
+              // && registro.proyecto["idProyecto"] ==
+              //   this.selectedProyecto.idProyecto
             ) {
               registros.push(registro);
             }
@@ -219,17 +219,17 @@ export class InformesComponent implements OnInit {
         detail: "Seleccione una fecha final"
       });
     }
-    if (this.selectedProyecto == null) {
-      this.messageService.add({
-        severity: "error",
-        summary: "¡¡¡Error!!!",
-        detail: "Debe Seleccionar un proyecto"
-      });
-    }
+    // if (this.selectedProyecto == null) {
+    //   this.messageService.add({
+    //     severity: "error",
+    //     summary: "¡¡¡Error!!!",
+    //     detail: "Debe Seleccionar un proyecto"
+    //   });
+    // }
     if (
       this.fechaFinal != null &&
-      this.fechaInicial != null &&
-      this.selectedProyecto != null
+      this.fechaInicial != null 
+      // && this.selectedProyecto != null
     ) {
       this.getAllRegistros();
       this.display = false;

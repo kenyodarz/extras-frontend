@@ -90,6 +90,7 @@
           <th>HEN</th>
           <th>HEF</th>
           <th>HEFN</th>
+          <th>Proyecto</th>
           <th>Actividad</th>
           <th>Total</th>
         </tr>
@@ -137,7 +138,8 @@
           <td>
             <b>{{ rowGroupMetadata[rowData.persona.cedula].hefn }}</b>
           </td>
-          <td></td>
+          <td>Proyecto</td>
+          <td>Actividad</td>
           <td>
             <b>
               {{
@@ -161,6 +163,7 @@
           <td>{{ rowData.hora_extra_nocturna }}</td>
           <td>{{ rowData.hora_extra_festiva }}</td>
           <td>{{ rowData.hora_extra_festiva_nocturna }}</td>
+          <td>{{ rowData.proyecto.nombre }}</td>
           <td>{{ rowData.actividad }}</td>
           <td>
             {{
@@ -203,7 +206,7 @@
         showButtonBar="true"
       ></p-calendar>
     </div>
-    <div class="ui-g-4">Proyecto</div>
+    <!-- <div class="ui-g-4">Proyecto</div>
     <div class="ui-g-8">
       <p-dropdown
         [options]="proyectos"
@@ -211,7 +214,7 @@
         optionLabel="nombre"
         placeholder="Seleccione Un Proyecto"
       ></p-dropdown>
-    </div>
+    </div> -->
     <div class="ui-g-4">Trabajador</div>
     <div class="ui-g-8">
       <p-dropdown
@@ -230,7 +233,7 @@
         pButton
         icon="pi pi-check"
         (click)="aceptar()"
-        label="Guardar"
+        label="Aceptar"
       ></button>
     </div>
   </p-footer>
