@@ -63,7 +63,8 @@ export class EntradasComponent implements OnInit {
   personas: Persona[];
   proyectos: Proyecto[];
   registros: Registro[];
-  selectedPersona: Persona;
+  selectedPersona: Persona[] = [];
+  listaPersonas: Persona[] = [];
   selectedProyecto: Proyecto;
   selectedRegistro: Registro;
   display: boolean;
@@ -133,7 +134,6 @@ export class EntradasComponent implements OnInit {
 
   getAllRegistros() {
     // console.log(this.date);
-
     this.registroService.getAll().subscribe(
       (result: any) => {
         let registros: Registro[] = [];
@@ -155,7 +155,7 @@ export class EntradasComponent implements OnInit {
   onSubmit() {
     this.authService.register(this.form).subscribe(
       data => {
-        console.log(data);
+        // console.log(data);
         this.isSuccessful = true;
         this.isSignUpFailed = false;
       },
@@ -167,19 +167,44 @@ export class EntradasComponent implements OnInit {
   }
 
   agregarEntrada() {
-    // console.log(this.formEntrada.value + "Agregar Entrada");
-    // console.log(JSON.stringify(this.formEntrada.value));l
+    this.formEntrada.patchValue({ actividad: this.activity });
     this.formEntrada.patchValue({ fecha: this.date });
     this.formEntrada.patchValue({ festivo: this.isfestivo });
-    this.formEntrada.patchValue({ proyecto: this.selectedProyecto });
-    this.formEntrada.patchValue({ actividad: this.activity });
-    let index = this.registros.findIndex(
-      e => e.persona["cedula"] == this.formEntrada.value.persona["cedula"]
-    );
-    if (index != -1) {
-      this.registroService
-        .segundo(this.registros[index].id, this.formEntrada.value)
-        .subscribe(
+    this.formEntrada.patchValue({
+      proyecto: this.selectedProyecto
+    });
+    /**
+     * Se iguala a otra variable debido a que al reiniciar el formulario
+     * este reinicia la variable selectedPersona
+     */
+
+    this.listaPersonas = this.selectedPersona;
+    for (let i = 0; i < this.listaPersonas.length; i++) {
+      let element = this.listaPersonas[i];
+      this.formEntrada.patchValue({ persona: element });
+      let index = this.registros.findIndex(
+        e => e.persona["cedula"] == element.cedula
+      );
+      if (index != -1) {
+        this.registroService
+          .segundo(this.registros[index].id, this.formEntrada.value)
+          .subscribe(
+            (result: any) => {
+              let registro = result as Registro;
+              this.validarRegistro(registro);
+              this.getAllRegistros();
+              this.messageService.add({
+                severity: "success",
+                summary: "Resultado",
+                detail: "Se Agrego el Registro Correctamente"
+              });
+            },
+            error => {
+              console.log(error);
+            }
+          );
+      } else {
+        this.registroService.save(this.formEntrada.value).subscribe(
           (result: any) => {
             let registro = result as Registro;
             this.validarRegistro(registro);
@@ -192,32 +217,18 @@ export class EntradasComponent implements OnInit {
           },
           error => {
             console.log(error);
+            this.messageService.add({
+              severity: "warn",
+              summary: "¡¡¡Advertencia!!!",
+              detail: "No ha Seleccionado ningun Registro"
+            });
           }
         );
-    } else {
-      this.registroService.save(this.formEntrada.value).subscribe(
-        (result: any) => {
-          let registro = result as Registro;
-          this.validarRegistro(registro);
-          this.getAllRegistros();
-          this.messageService.add({
-            severity: "success",
-            summary: "Resultado",
-            detail: "Se Agrego el Registro Correctamente"
-          });
-        },
-        error => {
-          console.log(error);
-          this.messageService.add({
-            severity: "warn",
-            summary: "¡¡¡Advertencia!!!",
-            detail: "No ha Seleccionado ningun Registro"
-          });
-        }
-      );
+      }
     }
     this.formEntrada.reset();
   }
+
   validarRegistro(registro: Registro) {
     let index = this.registros.findIndex(e => e.id == registro.id);
     if (index != -1) {
@@ -250,24 +261,21 @@ export class EntradasComponent implements OnInit {
   get festivo() {
     return this.formEntrada.get("festivo");
   }
-  get actividad(){
-    return this.formEntrada.get("actividad")
+  get actividad() {
+    return this.formEntrada.get("actividad");
   }
 
   onFechaChange() {
-    console.log("Fecha Seleccionada: " + this.date);
+    // console.log("Fecha Seleccionada: " + this.date);
     this.getAllRegistros();
   }
 
   aceptar() {
-    console.log(this.date);
-    console.log(JSON.stringify(this.selectedProyecto));
-    console.log(this.actividad);
     let fecha = true;
     let proyecto = true;
     let actividad = true;
     if (this.date == null) {
-      fecha= false
+      fecha = false;
       this.messageService.add({
         severity: "error",
         summary: "¡¡¡Error!!!",
@@ -275,7 +283,7 @@ export class EntradasComponent implements OnInit {
       });
     }
     if (this.selectedProyecto == null) {
-      proyecto = false
+      proyecto = false;
       this.messageService.add({
         severity: "error",
         summary: "¡¡¡Error!!!",
@@ -290,11 +298,7 @@ export class EntradasComponent implements OnInit {
         detail: "Debe ingresar una actividad"
       });
     }
-    if (
-      fecha &&
-      proyecto &&
-      actividad
-    ) {
+    if (fecha && proyecto && actividad) {
       this.getAllRegistros();
       this.display = false;
     } else {
@@ -302,8 +306,7 @@ export class EntradasComponent implements OnInit {
     }
   }
 
-  delete(): void {
-    console.log("Eliminando");
+  delete() {
     if (this.selectedRegistro == null || this.selectedRegistro.id == null) {
       this.messageService.add({
         severity: "warn",
@@ -339,7 +342,6 @@ export class EntradasComponent implements OnInit {
 
   ngOnInit(): void {
     this.isfestivo = false;
-
     this.formEntrada = this.formBuilder.group({
       fecha: new FormControl(),
       hora_entrada: new FormControl(null, Validators.required),

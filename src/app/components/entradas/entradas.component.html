@@ -1,4 +1,5 @@
 <div class="row" id="agregarEntrada">
+  <p-toast></p-toast>
   <div class="col-12">
     <form [formGroup]="formEntrada" (ngSubmit)="agregarEntrada()">
       <div class="row form-group p-2">
@@ -63,7 +64,7 @@
                 <label for="persona">Trabajador</label>
                 <div class="row">
                   <div class="col-12 mt-2 mb-2">
-                    <select
+                    <!-- <select
                       class="custom-select"
                       formControlName="persona"
                       id="persona"
@@ -80,7 +81,16 @@
                         *ngFor="let persona of personas"
                         >{{ persona.nombre }}</option
                       >
-                    </select>
+                    </select> -->
+                    <p-multiSelect
+                      optionLabel="nombre"
+                      [options]="personas"
+                      formControlName="persona"
+                      styleClass="custom-select"
+                      defaultLabel="--Seleccione uno o varios Trabajadores--"
+                      [(ngModel)]="selectedPersona"
+                    >
+                    </p-multiSelect>
                     <div
                       *ngIf="persona.invalid && formEntrada.dirty"
                       class="ng-dirty ng-invalid"
@@ -241,14 +251,6 @@
   </div>
 </div>
 <div class="ui-g-12">
-  <p-toast></p-toast>
-  <p-confirmDialog
-    header="Confirmación"
-    acceptLabel="Si"
-    rejectLabel="No"
-    icon="pi pi-exclamation-triangle"
-  >
-  </p-confirmDialog>
   <p-panel
     header="Registro Diarios"
     [toggleable]="true"
@@ -379,7 +381,7 @@
     <label for="actividad">Actividad</label>
   </div>
   <div class="ui-g-8 ui-fluid">
-    <input id="input" type="text" pInputText [(ngModel)]="activity">
+    <input id="input" type="text" pInputText [(ngModel)]="activity" />
   </div>
   <p-footer>
     <div class="ui-dialog-buttonpane ui-helper-clearfix">
