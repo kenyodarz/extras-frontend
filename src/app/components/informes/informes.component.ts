@@ -92,7 +92,16 @@ export class InformesComponent implements OnInit {
           }
         }
         console.log(registros);
-        this.registros = registros;
+        this.registros = this.registros = registros.sort(function(a, b) {
+          if (a.fecha > b.fecha) {
+            return 1;
+          }
+          if (a.fecha < b.fecha) {
+            return -1;
+          }
+          // a must be equal to b
+          return 0;
+        });;
       },
       error => {
         console.log(error);
