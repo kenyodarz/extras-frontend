@@ -46,7 +46,8 @@ export class RegistrosComponent implements OnInit {
     festivo: false,
     salario_con_prestaciones: null,
     salario_sin_prestaciones: null,
-    actividad: null
+    actividad: null,
+    users: null
   };
   selectedPersona: Persona;
   selectedProyecto: Proyecto;

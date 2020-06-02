@@ -27,6 +27,7 @@ import { PersonaService } from "src/app/services/persona.service";
 import { AuthService } from "src/app/services/auth.service";
 import { ProyectoService } from "src/app/services/proyecto.service";
 import { RegistroService } from "src/app/services/registro.service";
+import { TokenStorageService } from "src/app/services/token-storage.service";
 
 @Component({
   selector: "app-entradas",
@@ -70,6 +71,8 @@ export class EntradasComponent implements OnInit {
   display: boolean;
   es: any;
   date: Date;
+  currentUser: any;
+  private roles: string[];
   defaultDate: Date;
   entradaHora: Date;
   salidaHora: Date;
@@ -91,6 +94,7 @@ export class EntradasComponent implements OnInit {
     private messageService: MessageService,
     private confirmationService: ConfirmationService,
     private authService: AuthService,
+    private token: TokenStorageService,
     private formBuilder: FormBuilder
   ) {
     this.display = true;
@@ -134,13 +138,19 @@ export class EntradasComponent implements OnInit {
 
   getAllRegistros() {
     // console.log(this.date);
+    this.roles = this.currentUser.roles;
+    console.log(this.currentUser.username);
     this.registroService.getAll().subscribe(
       (result: any) => {
         let registros: Registro[] = [];
         for (let i = 0; i < result.length; i++) {
           let registro = result[i] as Registro;
           if (this.date == registro.fecha) {
-            registros.push(registro);
+            if (this.roles.includes("ROLE_ADMIN")) {
+              registros.push(registro);
+            } else if (registro.users == this.currentUser.username) {
+              registros.push(registro);
+            }
           }
         }
         this.registros = registros;
@@ -173,6 +183,7 @@ export class EntradasComponent implements OnInit {
     this.formEntrada.patchValue({
       proyecto: this.selectedProyecto
     });
+    this.formEntrada.patchValue({ users: this.currentUser.username });
     /**
      * Se iguala a otra variable debido a que al reiniciar el formulario
      * este reinicia la variable selectedPersona
@@ -341,6 +352,7 @@ export class EntradasComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.currentUser = this.token.getUser();
     this.isfestivo = false;
     this.formEntrada = this.formBuilder.group({
       fecha: new FormControl(),
@@ -349,7 +361,8 @@ export class EntradasComponent implements OnInit {
       persona: new FormControl(null, Validators.required),
       proyecto: new FormControl(),
       festivo: new FormControl(),
-      actividad: new FormControl()
+      actividad: new FormControl(),
+      users: new FormControl(),
     });
     this.getAllPersona();
     this.getAllProyecto();

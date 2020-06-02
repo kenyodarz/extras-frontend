@@ -37,6 +37,7 @@ export class Registro {
     public festivo: boolean = false,
     public salario_con_prestaciones: number = null,
     public salario_sin_prestaciones: number= null,
-    public actividad: string = null
+    public actividad: string = null,
+    public users: string = null
   ) {}
 }
