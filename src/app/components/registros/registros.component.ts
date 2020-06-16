@@ -86,8 +86,16 @@ export class RegistrosComponent implements OnInit {
           let registro = result[i] as Registro;
           registros.push(registro);
         }
+        this.registros = registros.sort(function(a, b) {
+          if (a.fecha > b.fecha) {
+            return 1;
+          }
+          if (a.fecha < b.fecha) {
+            return -1;
+          }
+          return 0;
+        });
         console.log(registros);
-        this.registros = registros;
       },
       error => {
         console.log(error);
