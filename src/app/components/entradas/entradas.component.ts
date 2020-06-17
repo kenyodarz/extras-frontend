@@ -193,13 +193,45 @@ export class EntradasComponent implements OnInit {
     for (let i = 0; i < this.listaPersonas.length; i++) {
       let element = this.listaPersonas[i];
       this.formEntrada.patchValue({ persona: element });
-      let index = this.registros.findIndex(
-        e => e.persona["cedula"] == element.cedula
-      );
-      if (index != -1) {
-        this.registroService
-          .segundo(this.registros[index].id, this.formEntrada.value)
-          .subscribe(
+
+      let filter = this.registros.filter(function(a) {
+        return a.persona["cedula"] == element.cedula;
+      });
+
+      if (filter.length >= 2) {
+        this.messageService.add({
+          severity: "error",
+          summary: "Error",
+          detail:
+            "No puede agregar a: " +
+            element.nombre +
+            " por que posee el maximo de registros"
+        });
+      } else {
+        // console.log('cargando');
+        let index = this.registros.findIndex(
+          e => e.persona["cedula"] == element.cedula
+        );
+        if (index != -1) {
+          this.registroService
+            .segundo(this.registros[index].id, this.formEntrada.value)
+            .subscribe(
+              (result: any) => {
+                let registro = result as Registro;
+                this.validarRegistro(registro);
+                this.getAllRegistros();
+                this.messageService.add({
+                  severity: "success",
+                  summary: "Resultado",
+                  detail: "Se Agrego el Registro Correctamente"
+                });
+              },
+              error => {
+                console.log(error);
+              }
+            );
+        } else {
+          this.registroService.save(this.formEntrada.value).subscribe(
             (result: any) => {
               let registro = result as Registro;
               this.validarRegistro(registro);
@@ -212,29 +244,14 @@ export class EntradasComponent implements OnInit {
             },
             error => {
               console.log(error);
+              this.messageService.add({
+                severity: "warn",
+                summary: "¡¡¡Advertencia!!!",
+                detail: "No ha Seleccionado ningun Registro"
+              });
             }
           );
-      } else {
-        this.registroService.save(this.formEntrada.value).subscribe(
-          (result: any) => {
-            let registro = result as Registro;
-            this.validarRegistro(registro);
-            this.getAllRegistros();
-            this.messageService.add({
-              severity: "success",
-              summary: "Resultado",
-              detail: "Se Agrego el Registro Correctamente"
-            });
-          },
-          error => {
-            console.log(error);
-            this.messageService.add({
-              severity: "warn",
-              summary: "¡¡¡Advertencia!!!",
-              detail: "No ha Seleccionado ningun Registro"
-            });
-          }
-        );
+        }
       }
     }
     this.formEntrada.reset();
@@ -362,7 +379,7 @@ export class EntradasComponent implements OnInit {
       proyecto: new FormControl(),
       festivo: new FormControl(),
       actividad: new FormControl(),
-      users: new FormControl(),
+      users: new FormControl()
     });
     this.getAllPersona();
     this.getAllProyecto();
