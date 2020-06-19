@@ -14,6 +14,7 @@ import { RegistroService } from "src/app/services/registro.service";
 // Utilidades
 import * as jsPDF from "jspdf";
 import "jspdf-autotable";
+import * as html2pdf from "html2pdf.js";
 
 @Component({
   selector: "app-informes",
@@ -83,7 +84,7 @@ export class InformesComponent implements OnInit {
           } else {
             if (
               registro.fecha >= this.fechaInicial &&
-              registro.fecha <= this.fechaFinal 
+              registro.fecha <= this.fechaFinal
               // && registro.proyecto["idProyecto"] ==
               //   this.selectedProyecto.idProyecto
             ) {
@@ -101,7 +102,7 @@ export class InformesComponent implements OnInit {
           }
           // a must be equal to b
           return 0;
-        });;
+        });
       },
       error => {
         console.log(error);
@@ -237,7 +238,7 @@ export class InformesComponent implements OnInit {
     // }
     if (
       this.fechaFinal != null &&
-      this.fechaInicial != null 
+      this.fechaInicial != null
       // && this.selectedProyecto != null
     ) {
       this.getAllRegistros();
@@ -339,5 +340,45 @@ export class InformesComponent implements OnInit {
         fileName + "_export_" + new Date().getTime() + EXCEL_EXTENSION
       );
     });
+  }
+  exportPdf() {
+    let documento = document.getElementById("dt");
+    let opciones = {
+      margin: [0.5, 0.5, 1, 0.5],
+      filename: "Informe.pdf",
+      image: { type: "jpeg", quality: 0.98 },
+      // html2canvas: { scale: 2 },
+      jsPDF: {
+        unit: "cm",
+        format: "letter",
+        orientation: "landscape"
+      }
+    };
+    // Old monolithic-style usage:
+    // html2pdf(documento, opciones);
+    // New Promise-based usage:
+    // html2pdf().from(documento).set(opciones).save();
+    html2pdf()
+      .from(documento)
+      .set(opciones)
+      .toPdf()
+      .get("pdf")
+      .then(function(pdf) {
+        // Colocamos en el Pie de Pagina # de la pagina
+        var totalPages = pdf.internal.getNumberOfPages();
+        for (let index = 0; index < totalPages; index++) {
+          pdf.setPage(index);
+          pdf.setFontSize(10);
+          pdf.setTextColor(0);
+          console.log(totalPages - index);
+          pdf.text(
+            "Pagina " + (totalPages - index) + " de " + totalPages,
+            pdf.internal.pageSize.getWidth() -
+              pdf.internal.pageSize.getWidth() / 2,
+            pdf.internal.pageSize.getHeight() - 0.5
+          );
+        }
+      })
+      .save();
   }
 }
