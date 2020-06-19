@@ -153,8 +153,17 @@ export class EntradasComponent implements OnInit {
             }
           }
         }
-        this.registros = registros;
-        console.log(this.registros);
+        this.registros = registros.sort(function(a, b) {
+          if (a.persona["nombre"] > b.persona["nombre"]) {
+            return 1;
+          }
+          if (a.persona["nombre"] < b.persona["nombre"]) {
+            return -1;
+          }
+          // cuando a y b son iguales
+          return 0;
+        });
+        // console.log(this.registros);
       },
       error => {
         console.log(error);

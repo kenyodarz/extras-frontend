@@ -92,7 +92,7 @@ export class InformesComponent implements OnInit {
             }
           }
         }
-        console.log(registros);
+        // console.log(registros);
         this.registros = this.registros = registros.sort(function(a, b) {
           if (a.fecha > b.fecha) {
             return 1;
@@ -347,7 +347,7 @@ export class InformesComponent implements OnInit {
       margin: [0.5, 0.5, 1, 0.5],
       filename: "Informe.pdf",
       image: { type: "jpeg", quality: 0.98 },
-      // html2canvas: { scale: 2 },
+      html2canvas: { scale: 2 },
       jsPDF: {
         unit: "cm",
         format: "letter",
