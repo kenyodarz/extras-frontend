@@ -9,7 +9,7 @@ import { Persona } from "src/app/models/Persona";
 /**
  * Direccion base de la API_REST
  */
-const API_URL: String = "http://192.168.10.5/ebackend/api/persona/";
+const API_URL: String = "http://152.200.130.126/ebackend/api/persona/";
 // const API_URL: String = "http://localhost:8090/api/persona/";
 
 @Injectable({
